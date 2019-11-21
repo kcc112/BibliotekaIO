@@ -1,0 +1,24 @@
+{% extends "example_app/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Grafiki{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Grafiki</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Akcje</th>
+            </tr>
+            {% for graphic in graphics %}
+                <tr>
+                    <td>{{ graphic.id }}</td>
+                    <td>{{ graphic.nazwa }}</td>
+                    <td> {{ graphic.akcje }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+</div>
+{% endblock %}
