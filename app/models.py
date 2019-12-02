@@ -1,6 +1,5 @@
 from . import db
 
-
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
@@ -19,3 +18,19 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+class Announcement(db.Model):
+    __tablename__ = 'announcements'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150),nullable=False)
+    description = db.Column(db.String(500),nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    readerVisibility = db.Column(db.Boolean)
+
+    def __init__(self,id, title, description,date, readerVisibility):
+        self.id = id
+        self.title = title
+        self.description = description
+        self.date = date
+        self.readerVisibility = readerVisibility
+    def __repr__(self):
+        return '<Announcement %r>' % self.title
