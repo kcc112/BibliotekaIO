@@ -11,7 +11,7 @@ Software engineering project
 ---
 - cd BibliotekaIO/
 - mkdir venv
-- irtualenv venv
+- virtualenv venv
 - source venv/bin/activate
 ---
 (Instalacja potrzebnych pakietów, jeśli nie ma wirtualnego środowiska zostaną zainstalowane globalnie.)
