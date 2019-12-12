@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, flash
 from .. import db
-from ..models import  Book, Announcement, Event, Graphic, Borow
+from ..models import  Book, Announcement, Event, Graphic, Borrow
 from . import example_app
 
 @example_app.route("/Employee")
@@ -89,21 +89,24 @@ def graphic():
 @example_app.route("/Events")
 def event():
     event = Event.query.order_by(Event.id).all()
+    # b = Event(id=2, nazwa="nazwa", data='data')
+    # db.session.add(b)
+    # db.session.commit()
     return render_template("/books/event.html", events=event)
 
 @example_app.route("/Borrows")
 def borrow():
-    borrow = Borow.query.order_by(Borow.id).all()
+    borrow = Borrow.query.order_by(Borrow.id).all()
     return render_template("/books/borrow.html", borrows=borrow)
 
 @example_app.route("/Borrows/delete/<int:id>")
-def deleteBorow(id):
-    borrow_to_delete = Borow.query.get_or_404(id)
+def deleteBorrow(id):
+    borrow_to_delete = Borrow.query.get_or_404(id)
 
     try:
         db.session.delete(borrow_to_delete)
         db.session.commit()
-        return redirect("/Borows")
+        return redirect("/Borrows")
     except:
         return "Blad przy usuwaniu wypozyczenia"
 

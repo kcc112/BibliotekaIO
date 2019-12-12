@@ -59,13 +59,13 @@ class Event(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.nazwa
 
-class Borow(db.Model):
-    __tablename__ = 'borows'
+class Borrow(db.Model):
+    __tablename__ = 'borrows'
     id = db.Column(db.Integer, primary_key=True)
-    ksiazka_id = (db.Integer)
+    ksiazka_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
     # ksiazka_id = (db.Integer,db.ForeignKey('books.id'))
     # user_id = (db.Integer,db.ForeignKey('users.id'))
-    user_id = (db.Integer)
 
     def __repr__(self):
         return '<Task %r>' % self.id
