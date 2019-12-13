@@ -17,8 +17,8 @@
         {% for ksiazka in ksiazki %}
         <tr>
             <td>{{ ksiazka.id }}</td>
-            <td>{{ ksiazka.nazwa }}</td>
-            <td> {{ ksiazka.strony }}</td>
+            <td>{{ ksiazka.name }}</td>
+            <td> {{ ksiazka.pages }}</td>
             <td>
                 <a href="/books/delete/{{ ksiazka.id }}">Delete</a>
                 <br>

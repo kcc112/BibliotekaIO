@@ -16,9 +16,9 @@ def books():
         strony = request.form['strony']
         if nazwa != "" and not nazwa.isspace():
             if strony.isdigit():
-                nowa_ksiazka = Book(nazwa=nazwa, strony=strony)
+                nowa_ksiazka = Book(name=nazwa, pages=strony)
             else:
-                nowa_ksiazka = Book(nazwa=nazwa)
+                nowa_ksiazka = Book(name=nazwa)
             try:
                 db.session.add(nowa_ksiazka)
                 db.session.commit()
@@ -52,8 +52,8 @@ def updateBook(id):
         nazwa = request.form['nazwa']
         strony = request.form['strony']
         if nazwa != "" and not nazwa.isspace() and strony.isdigit():
-            book_to_update.nazwa = nazwa
-            book_to_update.strony = strony
+            book_to_update.name = nazwa
+            book_to_update.pages = strony
 
             try:
                 db.session.commit()

@@ -1,8 +1,8 @@
-"""initial migration
+"""2.0
 
-Revision ID: c5dc57533eb8
+Revision ID: f6a0b6604ef7
 Revises: 
-Create Date: 2019-12-13 22:38:05.389573
+Create Date: 2019-12-13 23:25:13.592754
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c5dc57533eb8'
+revision = 'f6a0b6604ef7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,26 +28,26 @@ def upgrade():
     )
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('nazwa', sa.String(length=64), nullable=False),
-    sa.Column('strony', sa.Integer(), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=False),
+    sa.Column('pages', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('borrows',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('ksiazka_id', sa.Integer(), nullable=True),
+    sa.Column('book_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('nazwa', sa.String(length=64), nullable=False),
-    sa.Column('data', sa.String(length=64), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=False),
+    sa.Column('date', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('graphics',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('nazwa', sa.String(length=64), nullable=False),
-    sa.Column('akcje', sa.String(length=64), nullable=True),
+    sa.Column('name', sa.String(length=64), nullable=False),
+    sa.Column('action', sa.String(length=64), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
