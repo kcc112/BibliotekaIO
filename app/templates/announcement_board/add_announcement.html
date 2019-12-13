@@ -1,28 +1,28 @@
 {% extends "announcement_board/layout.html" %}
 {% block title %}Add Announcement{% endblock %}
 {% block head %}
-    {{ super() }}
-    <style>
-    </style>
+{{ super() }}
+<style>
+</style>
 {% endblock %}
 {% block body %}
-    <h1>Add new announcement</h1>
-    <form action="" method=post>
-        <p>
-            Id:
-            <input type=number name=id value="{{ request.form.id }}">
+<h1>Add new announcement</h1>
+<form action="" method=post>
+    <p>
+        Id:
+        <input type=number name=id value="{{ request.form.id }}">
         <p>
             Announcement title:
             <input type=text name=title value="{{ request.form.title }}">
-        <p>
-            Announcement content:
-            <input type=text name=description value="{{ request.form.description }}">
-        <p>
-            Announcement visible only to coworkers
-            <input type=checkbox name=readerVisibility value="{{ request.form.readerVisibility }}">
-        <p>
-            <input type=submit value="Create">
-        <p>
-            <a href="{{ url_for('example_app.worker') }}">Return</a>
-  </form>
+            <p>
+                Announcement content:
+                <input type=text name=description value="{{ request.form.description }}">
+                <p>
+                    Announcement visible only to coworkers
+                    <input type=checkbox name=readerVisibility value="{{ request.form.readerVisibility }}">
+                    <p>
+                        <input type=submit value="Create">
+                        <p>
+                            <a href="{{ url_for('announcements_app.worker') }}">Return</a>
+</form>
 {% endblock %}

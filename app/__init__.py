@@ -17,7 +17,7 @@ def create_app(config_name):
     from .books_app import books_app as books_app_blueprint
     app.register_blueprint(books_app_blueprint)
 
-    from .example_app import example_app as example_app_blueprint
-    app.register_blueprint(example_app_blueprint)
+    from .announcements_app import announcements_app as announcements_app_blueprint
+    app.register_blueprint(announcements_app_blueprint)
 
     return app
