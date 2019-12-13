@@ -43,3 +43,6 @@ venv
 
 # Vscode
 .vscode
+
+# Idea
+.idea
