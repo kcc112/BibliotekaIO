@@ -1,13 +1,15 @@
 from flask import render_template, request, redirect, flash
 from .. import db
-from ..models import  Book, Announcement, Event, Graphic, Borrow
-from . import example_app
+from ..models import Book, Announcement, Event, Graphic, Borrow
+from . import books_app
 
-@example_app.route("/Employee")
+
+@books_app.route('/employee')
 def employee():
-    return render_template("/books/employee.html")
+    return render_template('/books/employee.html')
 
-@example_app.route('/Books', methods=['POST','GET'])
+
+@books_app.route('/books', methods=['POST', 'GET'])
 def books():
     if request.method == 'POST':
         nazwa = request.form['nazwa']
@@ -21,26 +23,28 @@ def books():
                 db.session.add(nowa_ksiazka)
                 db.session.commit()
             except:
-                return "Problem z dodaniem ksiazki"
+                return 'Problem z dodaniem ksiazki'
         else:
             flash('Blad dodania ksiazki(nazwa nie moze byc pusta)')
-        return redirect("/Books")
+        return redirect('/books')
     else:
         ksiazki = Book.query.order_by(Book.id).all()
-        return render_template("/books/books.html",ksiazki=ksiazki)
+        return render_template('/books/books.html', ksiazki=ksiazki)
 
-@example_app.route("/Books/delete/<int:id>")
+
+@books_app.route('/books/delete/<int:id>')
 def deleteBook(id):
     book_to_delete = Book.query.get_or_404(id)
 
     try:
         db.session.delete(book_to_delete)
         db.session.commit()
-        return redirect("/Books")
+        return redirect('/books')
     except:
-        return "Blad przy usuwaniu ksiazki"
+        return 'blad przy usuwaniu ksiazki'
 
-@example_app.route("/Books/update/<int:id>",methods=['POST','GET'])
+
+@books_app.route('/books/update/<int:id>', methods=['POST', 'GET'])
 def updateBook(id):
     book_to_update = Book.query.get_or_404(id)
 
@@ -54,39 +58,44 @@ def updateBook(id):
             try:
                 db.session.commit()
             except:
-                return "Blad aktualizacji ksiazki"
+                return 'Blad aktualizacji ksiazki'
         else:
-            flash('Blad aktualizacji ksiazki(nazwa nie moze byc pusta, a strony musza byc liczba)')
-        return redirect("/Books")
+            flash(
+                'Blad aktualizacji ksiazki(nazwa nie moze byc pusta, a strony musza byc liczba)')
+        return redirect('/books')
     else:
-        return render_template('/books/update.html',ksiazka=book_to_update)
+        return render_template('/books/update.html', ksiazka=book_to_update)
 
-@example_app.route("/Announcements", methods=['POST','GET'])
+
+@books_app.route('/announcements', methods=['POST', 'GET'])
 def announcement():
 
     if request.method == 'POST':
         nazwa = request.form['nazwa']
         if nazwa.isspace() or nazwa == "":
             flash('Nazwa nie moze byc pusta')
-            return redirect("/Announcements")
+            return redirect('/announcements')
         else:
-            new_announcement = Announcement(nazwa=request.form['nazwa'],opis=request.form['opis'])
+            new_announcement = Announcement(
+                nazwa=request.form['nazwa'], opis=request.form['opis'])
             try:
                 db.session.add(new_announcement)
                 db.session.commit()
-                return redirect("/Announcements")
+                return redirect('/announcements')
             except:
-                return "Problem z dodaniem ogloszenia"
+                return 'Problem z dodaniem ogloszenia'
     else:
         announcement = Announcement.query.order_by(Announcement.id).all()
-        return render_template("/books/announcement.html",announcements=announcement)
+        return render_template('/books/announcement.html', announcements=announcement)
 
-@example_app.route("/Graphics")
+
+@books_app.route('/graphics')
 def graphic():
     graphic = Graphic.query.order_by(Graphic.id).all()
-    return render_template("/books/graphic.html", graphics=graphic)
+    return render_template('/books/graphic.html', graphics=graphic)
 
-@example_app.route("/Events")
+
+@books_app.route('/events')
 def event():
     event = Event.query.order_by(Event.id).all()
     # b = Event(id=2, nazwa="nazwa", data='data')
@@ -94,19 +103,20 @@ def event():
     # db.session.commit()
     return render_template("/books/event.html", events=event)
 
-@example_app.route("/Borrows")
+
+@books_app.route('/borrows')
 def borrow():
     borrow = Borrow.query.order_by(Borrow.id).all()
     return render_template("/books/borrow.html", borrows=borrow)
 
-@example_app.route("/Borrows/delete/<int:id>")
+
+@books_app.route('/borrows/delete/<int:id>')
 def deleteBorrow(id):
     borrow_to_delete = Borrow.query.get_or_404(id)
 
     try:
         db.session.delete(borrow_to_delete)
         db.session.commit()
-        return redirect("/Borrows")
+        return redirect('/borrows')
     except:
-        return "Blad przy usuwaniu wypozyczenia"
-
+        return 'Blad przy usuwaniu wypozyczenia'

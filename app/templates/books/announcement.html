@@ -3,32 +3,32 @@
 
 {% block title %}Ogłoszenia{% endblock %}
 {% block navbar %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 
 {% block page_content %}
 <div class="page-header">
     <h1>Ogłoszenia</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
-                <th>Opis</th>
-            </tr>
-            {% for announcement in announcements %}
-                <tr>
-                    <td>{{ announcement.id }}</td>
-                    <td>{{ announcement.nazwa }}:</td>
-                    <td> {{ announcement.opis }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        <form action="/Announcements" method="POST">
-            <label for="nazwa">Nazwa</label>
-            <input type="text" name="nazwa" id="nazwa"/>
-            <label for="opis">Opis</label>
-            <input type="text" name="opis" id="opis"/>
-            <input type="submit" value="Add Announcement"/>
-        </form>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Opis</th>
+        </tr>
+        {% for announcement in announcements %}
+        <tr>
+            <td>{{ announcement.id }}</td>
+            <td>{{ announcement.nazwa }}:</td>
+            <td> {{ announcement.opis }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/Announcements" method="POST">
+        <label for="nazwa">Nazwa</label>
+        <input type="text" name="nazwa" id="nazwa" />
+        <label for="opis">Opis</label>
+        <input type="text" name="opis" id="opis" />
+        <input type="submit" value="Add Announcement" />
+    </form>
 </div>
 {% endblock %}

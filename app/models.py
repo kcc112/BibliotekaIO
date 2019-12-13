@@ -1,25 +1,25 @@
 from . import db
 
 
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    users = db.relationship('User', backref='role', lazy='dynamic')
+# class Role(db.Model):
+#     __tablename__ = 'roles'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(64), unique=True)
+#     users = db.relationship('User', backref='role', lazy='dynamic')
 
-    def __repr__(self):
-        return '<Role %r>' % self.name
+#     def __repr__(self):
+#         return '<Role %r>' % self.name
 
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    # borrows = db.relationship('Borrow', backref='user', lazy='dynamic')
+# class User(db.Model):
+#     __tablename__ = 'users'
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(64), unique=True, index=True)
+#     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+#     # borrows = db.relationship('Borrow', backref='user', lazy='dynamic')
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+#     def __repr__(self):
+#         return '<User %r>' % self.username
 
 
 class Book(db.Model):
@@ -32,6 +32,7 @@ class Book(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.nazwa
 
+
 class Announcement(db.Model):
     __tablename__ = 'announcements'
     id = db.Column(db.Integer, primary_key=True)
@@ -40,6 +41,7 @@ class Announcement(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.nazwa
+
 
 class Graphic(db.Model):
     __tablename__ = 'graphics'
@@ -50,6 +52,7 @@ class Graphic(db.Model):
     def __repr__(self):
         return '<Task %r>' % self.nazwa
 
+
 class Event(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
@@ -58,6 +61,7 @@ class Event(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.nazwa
+
 
 class Borrow(db.Model):
     __tablename__ = 'borrows'

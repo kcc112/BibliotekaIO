@@ -3,24 +3,24 @@
 
 {% block title %}Wydarzenia{% endblock %}
 {% block navbar %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
     <h1>Wydarzenia</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
-                <th>Data</th>
-            </tr>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.id }}</td>
-                    <td>{{ event.nazwa }}</td>
-                    <td> {{ event.data }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Data</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.id }}</td>
+            <td>{{ event.nazwa }}</td>
+            <td> {{ event.data }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

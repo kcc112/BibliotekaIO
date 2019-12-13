@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 <h1>
-{% block title %}Example App{% endblock %}
+    {% block title %}Example App{% endblock %}
 </h1>
 {% block head %}
 {{ super() }}
@@ -8,24 +8,23 @@
 
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
-<div class="container">
-<div class="navbar-header">
-<button type="button" class="navbar-toggle"
-data-toggle="collapse" data-target=".navbar-collapse">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="/Employee">Home</a>
-</div>
-<div class="navbar-collapse collapse">
-<ul class="nav navbar-nav">
-{% block navbar_content %}{% endblock %}
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/employee">Home</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% block navbar_content %}{% endblock %}
 
-</ul>
-</div>
-</div>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

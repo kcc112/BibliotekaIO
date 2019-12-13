@@ -3,27 +3,27 @@
 
 {% block title %}Wypożyczenia{% endblock %}
 {% block navbar %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
     <h1>Wypożyczenia</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>|ID książki</th>
-                <th>|ID wypożyczjącego</th>
-            </tr>
-            {% for borrow in borrows %}
-                <tr>
-                    <td>{{ borrow.id }}</td>
-                    <td>{{ borrow.ksiazka_id }}</td>
-                    <td> {{ borrow.user_id }}</td>
-                    <td>
-                        <a href="/Borrows/delete/{{ borrow.id }}">Delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>|ID książki</th>
+            <th>|ID wypożyczjącego</th>
+        </tr>
+        {% for borrow in borrows %}
+        <tr>
+            <td>{{ borrow.id }}</td>
+            <td>{{ borrow.ksiazka_id }}</td>
+            <td> {{ borrow.user_id }}</td>
+            <td>
+                <a href="/borrows/delete/{{ borrow.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

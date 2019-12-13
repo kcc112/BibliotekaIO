@@ -3,18 +3,17 @@
 
 {% block title %}Update Book{% endblock %}
 {% block navbar %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
-   <h1>Update</h1>
-        <form action="/Books/update/{{ ksiazka.id }}" method="POST">
-            <label for="nazwa">Nazwa</label>
-            <input type="text" name="nazwa" id="nazwa" value="{{ ksiazka.nazwa }}"/>
-            <label for="strony">Strony</label>
-            <input type="text" name="strony" id="strony" value="{{ ksiazka.strony }}"/>
-            <input type="submit" value="Update Book"/>
-
-        </form>
+    <h1>Update</h1>
+    <form action="/books/update/{{ ksiazka.id }}" method="POST">
+        <label for="nazwa">Nazwa</label>
+        <input type="text" name="nazwa" id="nazwa" value="{{ ksiazka.nazwa }}" />
+        <label for="strony">Strony</label>
+        <input type="text" name="strony" id="strony" value="{{ ksiazka.strony }}" />
+        <input type="submit" value="Update Book" />
+    </form>
 </div>
 {% endblock %}
