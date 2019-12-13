@@ -14,7 +14,7 @@
         <th>Content
         <th>Date Added
       {%- for announcement in announcements %}
-          {%- if announcement.readerVisibility == 0 %}
+          {%- if announcement.readerVisibility == 1 %}
             <tr class=title>
                 <td>{{ announcement.id }}
                 <td>{{ announcement.title }}

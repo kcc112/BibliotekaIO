@@ -26,11 +26,11 @@ class Announcement(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     readerVisibility = db.Column(db.Boolean)
 
-    def __init__(self,id, title, description,date, readerVisibility):
-        self.id = id
-        self.title = title
-        self.description = description
-        self.date = date
-        self.readerVisibility = readerVisibility
+    # def __init__(self,id, title, description,date, readerVisibility):
+    #     self.id = id
+    #     self.title = title
+    #     self.description = description
+    #     self.date = date
+    #     self.readerVisibility = readerVisibility
     def __repr__(self):
         return '<Announcement %r>' % self.title

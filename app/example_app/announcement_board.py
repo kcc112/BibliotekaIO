@@ -26,7 +26,7 @@ def add_announcement():
                                     date=date.today(),readerVisibility='readerVisibility' in request.form)
         db.session.add(announcement)
         db.session.commit()
-        return redirect(url_for('worker'))
+        return redirect(url_for('example_app.worker'))
     return render_template('announcement_board/add_announcement.html',)
 
 @example_app.route('/announcement_board/worker/get_announcements')
@@ -57,7 +57,7 @@ def edit_announcement(id):
         announcement.date = date.today()
         announcement.readerVisibility = 'readerVisibility' in request.form
         db.session.commit()
-        return redirect(url_for('worker'))
+        return redirect(url_for('example_app.worker'))
     return render_template('announcement_board/edit_announcement.html',
                            announcement=Announcement.query.get_or_404(id)
                            )
@@ -72,7 +72,7 @@ def get_all_reader_announcements():
 def delete_announcement(id):
     db.session.delete(Announcement.query.get_or_404(id))
     db.session.commit()
-    return redirect(url_for('announcement_board/get_all_announcements'))
+    return redirect(url_for('example_app.get_all_announcements'))
 
 @example_app.route('/announcement_board/worker/update-announcement/<id>')
 def update_announcement(id,Data):
@@ -81,4 +81,4 @@ def update_announcement(id,Data):
     print(Data)
 
     db.session.commit()
-    return redirect(url_for('announcement_board/get_announcement/<id>'))
+    return redirect(url_for('example_app.get_announcement/<id>'))
