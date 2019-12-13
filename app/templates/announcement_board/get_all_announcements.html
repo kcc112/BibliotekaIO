@@ -1,0 +1,25 @@
+{% extends "announcement_board/layout.html" %}
+{% block title %}All anouncements{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>All anouncements</h1>
+    <table class=announcements>
+      <tr>
+        <th>#
+        <th>Title
+        <th>Content
+        <th>Date Added
+      {%- for announcement in announcements %}
+            <tr class=title>
+                <td>{{ announcement.id }}
+                <td>{{ announcement.title }}
+                <td>{{ announcement.description }}
+                <td>{{ announcement.date.strftime('%Y-%m-%d') }}
+                <td><a href={{ url_for('example_app.get_announcement', id=announcement.id) }}>Szczegóły ogłoszenia {{ announcement.id }}</a>
+      {%- endfor %}
+    </table>
+{% endblock %}

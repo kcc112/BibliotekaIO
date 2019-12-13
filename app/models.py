@@ -1,27 +1,5 @@
 from . import db
 
-
-# class Role(db.Model):
-#     __tablename__ = 'roles'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(64), unique=True)
-#     users = db.relationship('User', backref='role', lazy='dynamic')
-
-#     def __repr__(self):
-#         return '<Role %r>' % self.name
-
-
-# class User(db.Model):
-#     __tablename__ = 'users'
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(64), unique=True, index=True)
-#     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-#     # borrows = db.relationship('Borrow', backref='user', lazy='dynamic')
-
-#     def __repr__(self):
-#         return '<User %r>' % self.username
-
-
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
@@ -33,14 +11,25 @@ class Book(db.Model):
         return '<Task %r>' % self.nazwa
 
 
+# class Announcement(db.Model):
+#     __tablename__ = 'announcements'
+#     id = db.Column(db.Integer, primary_key=True)
+#     nazwa = db.Column(db.String(64), nullable=False)
+#     opis = db.Column(db.String(64), nullable=False)
+
+#     def __repr__(self):
+#         return '<Task %r>' % self.nazwa
+
 class Announcement(db.Model):
     __tablename__ = 'announcements'
     id = db.Column(db.Integer, primary_key=True)
-    nazwa = db.Column(db.String(64), nullable=False)
-    opis = db.Column(db.String(64), nullable=False)
+    title = db.Column(db.String(150),nullable=False)
+    description = db.Column(db.String(500),nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    readerVisibility = db.Column(db.Boolean)
 
     def __repr__(self):
-        return '<Task %r>' % self.nazwa
+        return '<Announcement %r>' % self.title
 
 
 class Graphic(db.Model):
@@ -61,6 +50,7 @@ class Event(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.nazwa
+
 
 
 class Borrow(db.Model):
