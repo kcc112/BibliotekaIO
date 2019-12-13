@@ -9,16 +9,7 @@ class Book(db.Model):
 
     def __repr__(self):
         return '<Task %r>' % self.nazwa
-
-
-# class Announcement(db.Model):
-#     __tablename__ = 'announcements'
-#     id = db.Column(db.Integer, primary_key=True)
-#     nazwa = db.Column(db.String(64), nullable=False)
-#     opis = db.Column(db.String(64), nullable=False)
-
-#     def __repr__(self):
-#         return '<Task %r>' % self.nazwa
+        
 
 class Announcement(db.Model):
     __tablename__ = 'announcements'

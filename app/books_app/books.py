@@ -67,28 +67,6 @@ def updateBook(id):
         return render_template('/books/update.html', ksiazka=book_to_update)
 
 
-@books_app.route('/announcements', methods=['POST', 'GET'])
-def announcement():
-
-    if request.method == 'POST':
-        nazwa = request.form['nazwa']
-        if nazwa.isspace() or nazwa == "":
-            flash('Nazwa nie moze byc pusta')
-            return redirect('/announcements')
-        else:
-            new_announcement = Announcement(
-                nazwa=request.form['nazwa'], opis=request.form['opis'])
-            try:
-                db.session.add(new_announcement)
-                db.session.commit()
-                return redirect('/announcements')
-            except:
-                return 'Problem z dodaniem ogloszenia'
-    else:
-        announcement = Announcement.query.order_by(Announcement.id).all()
-        return render_template('/books/announcement.html', announcements=announcement)
-
-
 @books_app.route('/graphics')
 def graphic():
     graphic = Graphic.query.order_by(Graphic.id).all()
