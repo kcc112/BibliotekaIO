@@ -7,6 +7,7 @@
 {% endblock %}
 {% block body %}
     <h1>Work schedules</h1>
+    <p><a href="{{ url_for('owner.addWorkSchedule') }}">Add new</a></p>
     <table class=workSchedules>
         <tr>
             <th>Id
@@ -22,7 +23,7 @@
                 <td>{{ schedule.day }}
                 <td>{{ schedule.startTime }}
                 <td>{{ schedule.endTime }}
-                <td>{{ schedule.worker.name }}
+                <td>{{ schedule.worker_id }}
             </tr>
         {%- endfor %}
     </table>
