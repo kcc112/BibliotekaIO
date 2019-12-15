@@ -4,11 +4,6 @@ from ..models import Book, Announcement, Event, Graphic, Borrow
 from . import books_app
 
 
-@books_app.route('/employee')
-def employee():
-    return render_template('/books/employee.html')
-
-
 @books_app.route('/books', methods=['POST', 'GET'])
 def books():
     if request.method == 'POST':

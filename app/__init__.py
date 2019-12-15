@@ -20,4 +20,7 @@ def create_app(config_name):
     from .announcements_app import announcements_app as announcements_app_blueprint
     app.register_blueprint(announcements_app_blueprint)
 
+    from .main_app import main_app as main_app_blueprint
+    app.register_blueprint(main_app_blueprint)
+
     return app

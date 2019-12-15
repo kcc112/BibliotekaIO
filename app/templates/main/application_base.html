@@ -20,8 +20,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                {% block navbar_content %}{% endblock %}
-
+                <li><a href={{ url_for('books_app.books') }}>Books</a></li>
+                <li><a href={{ url_for('books_app.borrow') }}>Borrows</a></li>
+                <li><a href={{ url_for('books_app.event') }}>Events</a></li>
+                <li><a href={{ url_for('books_app.graphic') }}>Graphics</a></li>
+                <li><a href={{ url_for('announcements_app.home') }}>Announcements</a></li>
             </ul>
         </div>
     </div>
