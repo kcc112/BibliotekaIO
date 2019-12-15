@@ -1,0 +1,29 @@
+{% extends "owner/layout.html" %}
+{% block title %}Work schedules{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Work schedules</h1>
+    <table class=workSchedules>
+        <tr>
+            <th>Id
+            <th>Day
+            <th>Start time
+            <th>End time
+            <th>Worker
+        </tr>
+
+        {%- for schedule in workSchedules %}
+            <tr>
+                <td>{{ schedule.id }}
+                <td>{{ schedule.day }}
+                <td>{{ schedule.startTime }}
+                <td>{{ schedule.endTime }}
+                <td>{{ schedule.worker.name }}
+            </tr>
+        {%- endfor %}
+    </table>
+{% endblock %}

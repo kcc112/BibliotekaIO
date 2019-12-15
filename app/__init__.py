@@ -14,7 +14,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
 
-    from .example_app import example_app as example_app_blueprint
-    app.register_blueprint(example_app_blueprint)
+    from .owner import owner as owner_blueprint
+    app.register_blueprint(owner_blueprint)
 
     return app

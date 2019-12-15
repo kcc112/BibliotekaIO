@@ -5,7 +5,7 @@ from . import example_app
 from .forms import NameForm
 
 
-@example_app.route('/', methods=['GET', 'POST'])
+@example_app.route('/example_app', methods=['GET', 'POST'])
 def index():
     form = NameForm()
     if form.validate_on_submit():
@@ -17,9 +17,9 @@ def index():
             session['known'] = False
         else:
             session['known'] = True
-            
+
         session['name'] = form.name.data
         return redirect(url_for('.index'))
-    return render_template('example_app/index.html',
+    return render_template('owner/index.html',
                            form=form, name=session.get('name'),
                            known=session.get('known', False))

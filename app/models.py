@@ -21,3 +21,14 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 
+class WorkSchedule(db.Model):
+    __tablename__ = 'work_schedules'
+    id = db.Column(db.Integer, primary_key=True)
+    day = db.Column(db.String(64))
+    startTime = db.Column(db.Time())
+    endTime = db.Column(db.Time())
+    worker_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return '<WorkSchedule %r>' % self.id
+
