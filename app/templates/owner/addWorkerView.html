@@ -13,10 +13,10 @@
             <input type=number name=id value="{{ request.form.id }}">
         <p>
             Worker name:
-            <input type=text name=title value="{{ request.form.title }}">
+            <input type=text name=username value="{{ request.form.username }}">
         <p>
             <input type=submit value="Create">
         <p>
-            <a href="{{ url_for('example_app.worker') }}">Return</a>
+            <a href={{ url_for('owner.getWorkers') }}>Return</a>
   </form>
 {% endblock %}

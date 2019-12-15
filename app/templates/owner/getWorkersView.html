@@ -10,13 +10,16 @@
     <table class=users>
         <tr>
             <th>#
-            <th>Title
-            <th>Content
+            <th>user name
+            <th>role id
                 {%- for user in users %}
                     <tr class = title>
                     <td>{{ user.id }}
                     <td>{{ user.username }}
                     <td>{{ user.role_id }}
+                    <td><a href={{ url_for('owner.deleteWorker', id=user.id) }}>Delete</a>
                 {%- endfor %}
     </table>
+    <p><a href={{ url_for('owner.addWorker') }}>Add new worker</a></p>
+    <a href={{ url_for('owner.ownerView') }}>Return</a>
 {% endblock %}

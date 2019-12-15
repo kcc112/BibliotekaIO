@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, current_app, request
 from app import db
-from app.models import User, WorkSchedule
+from app.models import User, WorkSchedule, Role
 from app.owner import owner
 from datetime import date
 
@@ -28,22 +28,17 @@ def getWorkSchedules():
 def addWorker():
     if request.method == 'POST':
         user = User(id=request.form['id'], username=request.form['username'],
-                    role_id=request.form['role_id'])
+                    role_id=1)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('getWorkers'))
+        return redirect(url_for('owner.getWorkers'))
     return render_template('owner/addWorkerView.html')
 
 
 @owner.route('/ownerModule/deleteWorker/<id>')
-def delete_event(id):
+def deleteWorker(id):
     db.session.delete(User.query.get_or_404(id))
     db.session.commit()
-    return redirect(url_for('getWorkers'))
+    return redirect(url_for('owner.getWorkers'))
 
 
-@owner.route('/ownerModule/getWorker/<id>')
-def get_event(id):
-    return render_template('event.html',
-                           user=User.query.get_or_404(id)
-                           )
