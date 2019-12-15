@@ -7,7 +7,7 @@ from datetime import date
 
 @announcements_app.route('/announcement_board')
 def home():
-    return render_template("announcement_board/readerOrWorker.html")
+    return render_template("announcement_board/reader_or_worker.html")
 
 
 @announcements_app.route('/announcement_board/reader')

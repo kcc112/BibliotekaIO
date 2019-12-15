@@ -1,12 +1,11 @@
-{% extends "announcement_board/layout.html" %}
+{% extends "main/application_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
 {% block title %}Reader announcements{% endblock %}
-{% block head %}
+{% block navbar %}
 {{ super() }}
-<style>
-</style>
 {% endblock %}
-{% block body %}
-<h1>Reader announcements</h1>
+{% block page_content %}
 <table class=announcements>
   <tr>
     <th>#
