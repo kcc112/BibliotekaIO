@@ -32,3 +32,5 @@ class WorkSchedule(db.Model):
     def __repr__(self):
         return '<WorkSchedule %r>' % self.id
 
+
+
