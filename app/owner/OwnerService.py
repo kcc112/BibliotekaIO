@@ -29,7 +29,7 @@ def addWorkSchedule():
         workSchedule = WorkSchedule(day=request.form['day'],
                                     startTime=datetime.time(int(request.form['start_time'].split(":")[0]), int(request.form['start_time'].split(":")[1])),
                                     endTime=datetime.time(int(request.form['end_time'].split(":")[0]), int(request.form['end_time'].split(":")[1])),
-                                    worker_id=1)
+                                    worker_id=request.form['worker_id'])
 
         db.session.add(workSchedule)
         db.session.commit()
@@ -37,6 +37,28 @@ def addWorkSchedule():
     return render_template('owner/addWorkSchedule.html',
                            users=User.query.order_by(User.id.desc()).all()
                            )
+
+@owner.route('/ownerModule/deleteWorkSchedule/<id>')
+def deleteWorkSchedule(id):
+    db.session.delete(WorkSchedule.query.get_or_404(id))
+    db.session.commit()
+    return redirect(url_for('owner.getWorkSchedules'))
+
+@owner.route('/ownerModule/editWorkSchedule/<id>', methods=['GET', 'POST'])
+def editWorkSchedule(id):
+    workSchedule = WorkSchedule.query.get(id)
+    if request.method == 'POST':
+        workSchedule.day = request.form['day']
+        workSchedule.startTime = datetime.time(int(request.form['start_time'].split(":")[0]), int(request.form['start_time'].split(":")[1]))
+        workSchedule.endTime = datetime.time(int(request.form['end_time'].split(":")[0]), int(request.form['end_time'].split(":")[1]))
+        workSchedule.worker_id = request.form['worker_id']
+        db.session.commit()
+        return redirect(url_for('owner.getWorkSchedules'))
+    return render_template('owner/editWorkSchedule.html',
+                           workSchedule=workSchedule,
+                           users=User.query.order_by(User.id.desc()).all()
+                           )
+
 
 @owner.route('/ownerModule/addWorker', methods=['GET', 'POST'])
 def addWorker():

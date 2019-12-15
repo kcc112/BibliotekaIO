@@ -1,0 +1,49 @@
+{% extends "owner/layout.html" %}
+{% block title %}Edit work schedule{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Edit work schedule</h1>
+    <form action="" method=post>
+        <p>
+            Day:
+            <select name=day>
+                {%- for key, value in {"1" : "Monday", "2" : "Tuesday", "3" : "Wednesday",
+                                        "4" : "Thursday", "5" : "Friday", "6" : "Saturday",
+                                        "7" : "Sunday"}.items() %}
+                    {%- if key == workSchedule.day %}
+                        <option value="{{key}}" selected>{{value}}</option>
+                    {%- else %}
+                        <option value="{{key}}">{{value}}</option>
+                    {%- endif %}
+                {%- endfor %}
+            </select>
+        </p>
+            Start time:
+            <input type=time name=start_time value="{{ workSchedule.startTime }}">
+        <p>
+            End time:
+            <input type=time name=end_time value="{{ workSchedule.endTime }}">
+        </p>
+        <p>
+            Worker:
+            <select name=worker_id>
+                {%- for user in users %}
+                    {%- if user.id == workSchedule.worker_id %}
+                        <option value="{{ user.id }}" selected>{{ user.username }}</option>
+                    {%- else %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {%- endif %}
+                {%- endfor %}
+            </select>
+        </p>
+        <p>
+            <input type=submit value="Edit">
+        </p>
+
+        <a href="{{ url_for('owner.getWorkSchedules') }}">Return</a>
+  </form>
+{% endblock %}
