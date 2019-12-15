@@ -1,0 +1,23 @@
+{% extends "example_app/layout.html" %}
+{% block title %}Workers{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Workers</h1>
+    <table class=users>
+        <tr>
+            <th>#
+            <th>Title
+            <th>Content
+                {%- for user in users %}
+
+                    <tr>
+                    <td>{{ user.id }}
+                    <td>{{ user.username }}
+                    <td>{{ user.role_id }}
+                {%- endfor %}
+    </table>
+{% endblock %}
