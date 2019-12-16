@@ -24,7 +24,7 @@ def index():
             session['known'] = True
             
         session['name'] = form.name.data
-        return redirect(url_for('.index'))
+        return redirect(url_for('example_app.reader'))
     return render_template('example_app/index.html',
                            form=form, name=session.get('name'),
                            known=session.get('known', False))
@@ -51,3 +51,16 @@ def borrow():
         return render_template('./reader/borrow.html', book=book, dateform=dateform, do_alert_success=True)
 
     return render_template('./reader/borrow.html', book=book, dateform=dateform)    
+
+@example_app.route("/Reader/Borrows")
+def borrows():
+    current_user = User.query.filter_by(username=session['name']).first()
+    user_borrows = Borrow.query.order_by(Borrow.id).filter_by(user_id=current_user.id).all()
+    borrowed_books_dictionary = {}
+    for borrow in user_borrows:
+        if borrow.book_id not in borrowed_books_dictionary:
+            book = Book.query.filter_by(id=borrow.book_id).first()
+            borrowed_books_dictionary[borrow.book_id] = book
+    
+    #return borrowed_books_dictionary[1].name
+    return render_template('./reader/borrows.html', borrows=user_borrows, borrowed_books=borrowed_books_dictionary)

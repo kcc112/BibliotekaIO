@@ -7,12 +7,9 @@ from .books import test_add_some_books, test_add_other_data
 
 @example_app.route("/Reader")
 def reader():
-    return render_template('./reader/reader_base.html')
+    return render_template('./reader/reader_base.html', session=session)
 
-@example_app.route("/Reader/Borrows")
-def borrows():
-    borrows = Borrow.query.order_by(Borrow.id).all()
-    return render_template('./reader/borrows.html', borrows=borrows)
+
 
 @example_app.route("/Reader/Events")
 def events():
