@@ -1,0 +1,21 @@
+{% extends "reader/reader_base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Edycja profilu</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <li><a href="/Reader/Edit/Password">Książki</a></li>
+    <li><a href="/Reader/Edit/Email">Wypożyczone książki</a></li>
+</div>
+{% endblock %}
+

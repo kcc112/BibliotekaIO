@@ -3,6 +3,8 @@ from .. import db
 from ..models import User
 from . import example_app
 from .forms import NameForm
+from .forms import BookTable
+from ..models import Book
 
 
 @example_app.route('/', methods=['GET', 'POST'])
@@ -23,3 +25,15 @@ def index():
     return render_template('example_app/index.html',
                            form=form, name=session.get('name'),
                            known=session.get('known', False))
+
+
+@example_app.route("/Reader/Books")
+def books():
+    #test_add_some_books()
+    books_query = db.session.query(Book)
+    books_table = BookTable(books_query)
+    return render_template('./reader/books.html') + books_table.__html__()      
+
+@example_app.route("/Reader/Borrow")
+def borrow():
+    return render_template('./reader/borrow.html')    

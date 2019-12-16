@@ -1,0 +1,26 @@
+{% extends "reader/reader_base.html" %}
+
+{% block title %}Borrows{% endblock %}
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Ogłoszenia</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+            </tr>
+            {% for announcement in announcements %}
+                <tr>
+                    <td>{{ announcement.id }}</td>
+                    <td>{{ announcement.nazwa }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
