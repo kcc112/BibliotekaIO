@@ -1,0 +1,38 @@
+{% extends "owner/layout.html" %}
+{% block title %}Work schedules{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+{% block body %}
+<h1>Work schedules</h1>
+<table class=workSchedules>
+    <tr>
+        <th>Id
+        <th>Day
+        <th>Start time
+        <th>End time
+        <th>Worker
+        <th>Manage
+    </tr>
+
+    {%- for schedule in workSchedules %}
+    <tr>
+        <td>{{ schedule.id }}
+        <td>{{ {"1" : "Monday", "2" : "Tuesday", "3" : "Wednesday",
+                        "4" : "Thursday", "5" : "Friday", "6" : "Saturday",
+                        "7" : "Sunday"}[schedule.day] }}
+        <td>{{ schedule.startTime }}
+        <td>{{ schedule.endTime }}
+        <td>{{ schedule.worker_id }}
+        <td><a href="{{ url_for('owner_app.editWorkSchedule', id=schedule.id) }}">Edit</a> <a
+                href="{{ url_for('owner_app.deleteWorkSchedule', id=schedule.id) }}">Delete</a>
+
+    </tr>
+    {%- endfor %}
+</table>
+
+<p><a href="{{ url_for('owner_app.addWorkSchedule') }}">Add new</a></p>
+<a href="{{ url_for('owner_app.ownerView') }}">Return</a>
+{% endblock %}

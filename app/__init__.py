@@ -8,6 +8,7 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 login = LoginManager()
 
+
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
@@ -28,5 +29,8 @@ def create_app(config_name):
 
     from .registration_login_app import registration_login_app as registration_login_app_blueprint
     app.register_blueprint(registration_login_app_blueprint)
+    
+    from .owner_app import owner_app as owner_app_blueprint
+    app.register_blueprint(owner_app_blueprint)
 
     return app

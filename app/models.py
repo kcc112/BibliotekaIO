@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app import login
 from . import db
 
+
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
@@ -17,8 +18,8 @@ class Book(db.Model):
 class Announcement(db.Model):
     __tablename__ = 'announcements'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150),nullable=False)
-    description = db.Column(db.String(500),nullable=False)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     readerVisibility = db.Column(db.Boolean)
 
@@ -59,9 +60,8 @@ class Borrow(db.Model):
         return '<Task %r>' % self.id
 
 
-
 class User(UserMixin, db.Model):
-
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     #username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -75,10 +75,22 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        return  check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password_hash, password)
 
+
+class WorkSchedule(db.Model):
+    __tablename__ = 'work_schedules'
+    id = db.Column(db.Integer, primary_key=True)
+    day = db.Column(db.Integer)
+    startTime = db.Column(db.Time())
+    endTime = db.Column(db.Time())
+    worker_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return '<WorkSchedule %r>' % self.id
 
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+    return '<User %r>' % self.username

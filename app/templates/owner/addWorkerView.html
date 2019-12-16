@@ -1,0 +1,22 @@
+{% extends "owner/layout.html" %}
+{% block title %}Add worker{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+</style>
+{% endblock %}
+{% block body %}
+<h1>Add new worker</h1>
+<form action="" method=post>
+    <p>
+        Id:
+        <input type=number name=id value="{{ request.form.id }}">
+        <p>
+            Worker name:
+            <input type=text name=username value="{{ request.form.username }}">
+            <p>
+                <input type=submit value="Create">
+                <p>
+                    <a href="{{ url_for('owner_app.getWorkers') }}">Return</a>
+</form>
+{% endblock %}
