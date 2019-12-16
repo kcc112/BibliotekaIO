@@ -1,4 +1,5 @@
 from . import db
+from datetime import date
 
 
 class Role(db.Model):
@@ -54,8 +55,10 @@ class Event(db.Model):
 class Borrow(db.Model):
     __tablename__ = 'borrows'
     id = db.Column(db.Integer, primary_key=True)
-    ksiazka_id = db.Column(db.Integer)
-    user_id = db.Column(db.Integer)
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    start_date = db.Column(db.Date, default=date.today())
+    end_date = db.Column(db.Date)
 
     def __repr__(self):
         return '<Task %r>' % self.id

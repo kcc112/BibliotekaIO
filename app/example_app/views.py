@@ -1,10 +1,13 @@
-from flask import render_template, session, redirect, url_for, current_app
+from flask import render_template, session, redirect, url_for, current_app, request
 from .. import db
 from ..models import User
 from . import example_app
 from .forms import NameForm
 from .forms import BookTable
 from ..models import Book
+from .forms import BorrowDateForm
+from datetime import date
+from ..models import Borrow
 
 
 @example_app.route('/', methods=['GET', 'POST'])
@@ -34,6 +37,16 @@ def books():
     books_table = BookTable(books_query)
     return render_template('./reader/books.html') + books_table.__html__()      
 
-@example_app.route("/Reader/Borrow")
+@example_app.route("/Reader/Borrow", methods=['GET', 'POST'])
 def borrow():
-    return render_template('./reader/borrow.html')    
+    book = Book.query.filter_by(id=request.args["id"]).first()
+    dateform = BorrowDateForm()
+    if dateform.validate_on_submit():
+        user = User.query.filter_by(username=session['name']).first()
+        book_id = request.args["id"]
+        borrow = Borrow(book_id=book_id, user_id=user.id, start_date=dateform.start_date.data, end_date=dateform.end_date.data)
+        book.quantity = book.quantity - 1
+        db.session.commit()
+        return render_template('./reader/borrow.html', book=book, dateform=dateform, do_alert_success=True)
+
+    return render_template('./reader/borrow.html', book=book, dateform=dateform)    

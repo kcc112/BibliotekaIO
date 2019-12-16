@@ -10,7 +10,7 @@
 <div class="container">
     <div class="page-header">
         <h1>Wypożyczone książki</h1>
-        <table>
+        <table class="table">
             <tr>
                 <th>ID wypożyczenia</th>
                 <th>ID użytkownika</th>
@@ -19,7 +19,7 @@
             {% for borrow in borrows %}
             <tr>
                 <td>{{ borrow.id }}</td>
-                <td>{{ borrow.user_id }}</td>
+                <td>{{ borrow.book_id }}</td>
                 <td>{{ borrow.ksiazka_id }}</td>
             </tr>
             {% endfor %}
