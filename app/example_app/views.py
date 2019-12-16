@@ -45,6 +45,7 @@ def borrow():
         user = User.query.filter_by(username=session['name']).first()
         book_id = request.args["id"]
         borrow = Borrow(book_id=book_id, user_id=user.id, start_date=dateform.start_date.data, end_date=dateform.end_date.data)
+        db.session.add(borrow)
         book.quantity = book.quantity - 1
         db.session.commit()
         return render_template('./reader/borrow.html', book=book, dateform=dateform, do_alert_success=True)
