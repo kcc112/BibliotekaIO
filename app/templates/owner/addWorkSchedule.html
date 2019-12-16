@@ -1,11 +1,11 @@
 {% extends "owner/layout.html" %}
-{% block title %}Add work schedule{% endblock %}
-{% block head %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Add Announcement{% endblock %}
+{% block navbar %}
 {{ super() }}
-<style>
-</style>
 {% endblock %}
-{% block body %}
+{% block page_content %}
 <h1>Add work schedule</h1>
 <form action="" method=post>
     <p>

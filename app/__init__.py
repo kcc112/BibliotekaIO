@@ -18,6 +18,7 @@ def create_app(config_name):
     db.init_app(app)
     login.init_app(app)
 
+    
     from .books_app import books_app as books_app_blueprint
     app.register_blueprint(books_app_blueprint)
 

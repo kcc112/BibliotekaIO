@@ -5,12 +5,6 @@ from . import db
 import enum
 
 
-class TypeEnum(enum.Enum):
-    admin = 'Admin'
-    client = 'Client'
-    employee = 'Employee'
-
-
 class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
@@ -72,7 +66,7 @@ class User(UserMixin, db.Model):
     #username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    user_type = db.Column(db.Enum(TypeEnum), nullable=False)
+    user_type = db.Column(db.String(8), nullable=False)
     #posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):

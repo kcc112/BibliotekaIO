@@ -15,7 +15,10 @@ def index():
 @registration_login_app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('registration_login_app.index'))
+        if current_user.user_type is 'client':
+            return redirect(url_for('owner_app.ownerView'))
+        if current_user.user_type is 'employee':
+            return redirect(url_for('owner_app.ownerView'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -25,7 +28,11 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page) != '':
-            next_page = url_for('registration_login_app.index')
+            next_page = url_for('registration_login_app.login')
+            if user.user_type == 'client':
+                next_page = url_for('registration_login_app.index')
+            if user.user_type == 'employee':
+                next_page = url_for('owner_app.ownerView')
         return redirect(next_page)
     return render_template('/registration_login/login.html', title='Sign In', form=form)
 

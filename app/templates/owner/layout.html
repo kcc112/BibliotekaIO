@@ -1,15 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    {% block head %}
-    <title>{% block title %}{% endblock %} - Library</title>
+{% extends "main/application_base.html" %}
+<h1>
+    {% block title %}
+    {% if title %}
+    <title> {{ title }} - Admin Panel</title>
+    {% else %}
+    <title>Welcome in library!</title>
+    {% endif %}
     {% endblock %}
-</head>
+</h1>
+{% block head %}
+{{ super() }}
+{% endblock %}
 
-<body>
-    {% block body %}
-    {% endblock %}
-</body>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Library</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('owner_app.getWorkSchedules') }}">Work Schedules</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('owner_app.getWorkers') }}">Workers List</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
 
-</html>
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button"></button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

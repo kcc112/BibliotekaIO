@@ -1,11 +1,11 @@
 {% extends "owner/layout.html" %}
-{% block title %}Workers{% endblock %}
-{% block head %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Add Announcement{% endblock %}
+{% block navbar %}
 {{ super() }}
-<style>
-</style>
 {% endblock %}
-{% block body %}
+{% block page_content %}
 <h1>Workers</h1>
 <table class=users>
     <tr>
