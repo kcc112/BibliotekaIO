@@ -1,28 +1,32 @@
 {% extends "registration_login/base.html" %}
 {% block content %}
-<h1>Sign in</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.email.label }} <br>
-        {{ form.email(size=32) }}
-        {% for error in form.email.errors %}
-        <span style="color: red;">[{{error}}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-        {% for error in form.password.errors %}
-        <span style="color: red;">[{{error}}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.remember_me() }}
-        {{ form.remember_me.label }}
-    </p>
-    <p> {{ form.submit() }}</p><br>
-    <p>New User? <a href="{{ url_for('registration_login_app.register') }}">Click to register!</a></p>
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1>Sign in</h1>
+        <form class="form-group" action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.email.label }} <br>
+                {{ form.email(size=32) }}
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{error}}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }}
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{error}}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.remember_me() }}
+                {{ form.remember_me.label }}
+            </p>
+            <p> {{ form.submit() }}</p><br>
+            <p>New User? <a href="{{ url_for('registration_login_app.register') }}">Click to register!</a></p>
 
-</form>
+        </form>
+    </div>
+</div>
 {% endblock %}

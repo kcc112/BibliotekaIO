@@ -7,29 +7,35 @@
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main_app.home') }}">Home</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('books_app.books') }}">Books</a></li>
-                <li><a href="{{ url_for('books_app.borrow') }}">Borrows</a></li>
-                <li><a href="{{ url_for('books_app.event') }}">Events</a></li>
-                <li><a href="{{ url_for('books_app.graphic') }}">Graphics</a></li>
-                <li><a href="{{ url_for('announcements_app.home') }}">Announcements</a></li>
-                <li><a href="{{ url_for('registration_login_app.logout') }}">Logout</a></li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ url_for('main_app.home') }}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('books_app.books') }}">Books</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('books_app.borrow') }}">Borrows</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('books_app.event') }}">Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('books_app.graphic') }}">Graphics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('announcements_app.home') }}">Announcements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('registration_login_app.logout') }}">Logout</a>
+            </li>
+        </ul>
     </div>
-</div>
+</nav>
 {% endblock %}
 
 {% block content %}
