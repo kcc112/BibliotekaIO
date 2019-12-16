@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    {% if title %}
+    <title> {{ title }} - Library</title>
+    {% else %}
+    <title>Welcome in library!</title>
+    {% endif %}
+</head>
+
+<body>
+    <div>
+        Library:
+        <a href=" {{ url_for('registration_login_app.login') }}">Login</a>
+        <a href=" {{ url_for('registration_login_app.logout') }}">Logout</a>
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages%}
+        <li> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock%}
+</body>
+
+</html>

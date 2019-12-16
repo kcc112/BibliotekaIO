@@ -1,10 +1,12 @@
 from flask import render_template, request, redirect, flash
+from flask_login import login_required
 from .. import db
-from ..models import Book, Announcement, Event, Graphic, Borrow
+from ..models import Book, Event, Graphic, Borrow
 from . import books_app
 
 
 @books_app.route('/books', methods=['POST', 'GET'])
+@login_required
 def books():
     if request.method == 'POST':
         nazwa = request.form['nazwa']
@@ -28,6 +30,7 @@ def books():
 
 
 @books_app.route('/books/delete/<int:id>')
+@login_required
 def deleteBook(id):
     book_to_delete = Book.query.get_or_404(id)
 
@@ -40,6 +43,7 @@ def deleteBook(id):
 
 
 @books_app.route('/books/update/<int:id>', methods=['POST', 'GET'])
+@login_required
 def updateBook(id):
     book_to_update = Book.query.get_or_404(id)
 
@@ -63,12 +67,14 @@ def updateBook(id):
 
 
 @books_app.route('/graphics')
+@login_required
 def graphic():
     graphic = Graphic.query.order_by(Graphic.id).all()
     return render_template('/books/graphic.html', graphics=graphic)
 
 
 @books_app.route('/events')
+@login_required
 def event():
     event = Event.query.order_by(Event.id).all()
     # b = Event(id=2, nazwa="nazwa", data='data')
@@ -78,12 +84,14 @@ def event():
 
 
 @books_app.route('/borrows')
+@login_required
 def borrow():
     borrow = Borrow.query.order_by(Borrow.id).all()
     return render_template("/books/borrow.html", borrows=borrow)
 
 
 @books_app.route('/borrows/delete/<int:id>')
+@login_required
 def deleteBorrow(id):
     borrow_to_delete = Borrow.query.get_or_404(id)
 

@@ -16,15 +16,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href={{ url_for('main_app.base') }}>Home</a>
+            <a class="navbar-brand" href="{{ url_for('main_app.home') }}">Home</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href={{ url_for('books_app.books') }}>Books</a></li>
-                <li><a href={{ url_for('books_app.borrow') }}>Borrows</a></li>
-                <li><a href={{ url_for('books_app.event') }}>Events</a></li>
-                <li><a href={{ url_for('books_app.graphic') }}>Graphics</a></li>
-                <li><a href={{ url_for('announcements_app.home') }}>Announcements</a></li>
+                <li><a href="{{ url_for('books_app.books') }}">Books</a></li>
+                <li><a href="{{ url_for('books_app.borrow') }}">Borrows</a></li>
+                <li><a href="{{ url_for('books_app.event') }}">Events</a></li>
+                <li><a href="{{ url_for('books_app.graphic') }}">Graphics</a></li>
+                <li><a href="{{ url_for('announcements_app.home') }}">Announcements</a></li>
+                <li><a href="{{ url_for('registration_login_app.logout') }}">Logout</a></li>
             </ul>
         </div>
     </div>
