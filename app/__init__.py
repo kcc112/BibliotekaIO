@@ -34,4 +34,7 @@ def create_app(config_name):
     from .owner_app import owner_app as owner_app_blueprint
     app.register_blueprint(owner_app_blueprint)
 
+    from .events_app import events_app as events_app_blueprint
+    app.register_blueprint(events_app_blueprint)
+
     return app

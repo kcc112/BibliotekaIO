@@ -38,16 +38,6 @@ class Graphic(db.Model):
         return '<Task %r>' % self.name
 
 
-class Event(db.Model):
-    __tablename__ = 'events'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
-    date = db.Column(db.String(64))
-
-    def __repr__(self):
-        return '<Task %r>' % self.nazwa
-
-
 class Borrow(db.Model):
     __tablename__ = 'borrows'
     id = db.Column(db.Integer, primary_key=True)
@@ -94,4 +84,43 @@ class WorkSchedule(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-    return '<User %r>' % self.username
+
+
+class Auditorium(db.Model):
+    __tablename__ = 'auditorium'
+    id = db.Column(db.Integer, primary_key=True)
+    maxPlaces = db.Column(db.Integer)
+    number = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Auditorium %r>' % self.number
+
+
+class Event(db.Model):
+    __tablename__ = 'event'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    # nwm jak tutaj wiele uzytkownikow zrobic
+    # users = db.relationship("User", backref = "event")
+    description = db.Column(db.String)
+    date = db.Column(db.DateTime)
+    # time = db.Column(db.Time)
+    auditorium = db.Column(db.Integer, db.ForeignKey('auditorium.id'))
+    # tags = db.relationship('User', secondary=tags, lazy='subquery',
+    #                        backref=db.backref('event', lazy=True))
+
+    def __repr__(self):
+        return '<Event %r>' % self.name
+
+
+# klasa laczaca user z event ( bo jest to relacja many-to-many) - nazwe lepsza trzeba wybrac
+# tags = db.Table('tags',
+#                 db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
+#                 db.Column('event_id', db.Integer, db.ForeignKey('Event.id'), primary_key=True)
+#                 )
+
+
+# class User(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    name = db.Column(db.String(80), nullable=False)
+#    surname = db.Column(db.String(80), nullable=False)
