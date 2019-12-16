@@ -15,8 +15,8 @@
             {%- for user in users %}
     <tr class=title>
         <td>{{ user.id }}
-        <td>{{ user.username }}
-        <td>{{ user.role_id }}
+        <td>{{ user.email }}
+        <td>{{ user.user_type }}
         <td><a href="{{ url_for('owner_app.deleteWorker', id=user.id) }}">Delete</a>
             {%- endfor %}
 </table>

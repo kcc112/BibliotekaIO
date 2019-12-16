@@ -15,10 +15,7 @@ def index():
 @registration_login_app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        if current_user.user_type is 'client':
-            return redirect(url_for('owner_app.ownerView'))
-        if current_user.user_type is 'employee':
-            return redirect(url_for('owner_app.ownerView'))
+            return redirect(url_for('registration_login_app.index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
