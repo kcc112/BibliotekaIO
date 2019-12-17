@@ -1,8 +1,20 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import date
 from app import login
 from . import db
 import enum
+
+
+# class Book(db.Model):
+#     __tablename__ = 'books'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(64), nullable=False)
+#     pages = db.Column(db.Integer, default=0)
+#     # borrows = db.relationship('Borrow', backref='book', lazy='dynamic')
+
+#     def __repr__(self):
+#         return '<Task %r>' % self.name
 
 
 class Book(db.Model):
@@ -10,6 +22,9 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     pages = db.Column(db.Integer, default=0)
+    author = db.Column(db.String(64), index=True)
+    quantity = db.Column(db.Integer, index=True)
+    year = db.Column(db.Integer, index=True)
     # borrows = db.relationship('Borrow', backref='book', lazy='dynamic')
 
     def __repr__(self):
@@ -45,6 +60,10 @@ class Borrow(db.Model):
     user_id = db.Column(db.Integer)
     # ksiazka_id = (db.Integer,db.ForeignKey('books.id'))
     # user_id = (db.Integer,db.ForeignKey('users.id'))
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    start_date = db.Column(db.Date, default=date.today())
+    end_date = db.Column(db.Date)
 
     def __repr__(self):
         return '<Task %r>' % self.id

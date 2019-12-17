@@ -1,6 +1,5 @@
 from flask import render_template, redirect, url_for
 from flask_login import login_required
-from flask_user import roles_required
 from . import main_app
 
 

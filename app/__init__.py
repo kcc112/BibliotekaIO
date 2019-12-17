@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import config
 
@@ -18,7 +18,6 @@ def create_app(config_name):
     db.init_app(app)
     login.init_app(app)
 
-    
     from .books_app import books_app as books_app_blueprint
     app.register_blueprint(books_app_blueprint)
 
@@ -30,7 +29,10 @@ def create_app(config_name):
 
     from .registration_login_app import registration_login_app as registration_login_app_blueprint
     app.register_blueprint(registration_login_app_blueprint)
-    
+
+    from .reader_app import reader_app as reader_app_blueprint
+    app.register_blueprint(reader_app_blueprint)
+
     from .owner_app import owner_app as owner_app_blueprint
     app.register_blueprint(owner_app_blueprint)
 
