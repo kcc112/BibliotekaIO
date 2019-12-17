@@ -1,0 +1,50 @@
+{% extends "main/application_base.html" %}
+<h1>
+    {% block title %}
+    {% if title %}
+    <title> {{ title }} - Library</title>
+    {% else %}
+    <title>Welcome in library!</title>
+    {% endif %}
+    {% endblock %}
+</h1>
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Library</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('registration_login_app.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=" {{ url_for('registration_login_app.logout') }}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button"></button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

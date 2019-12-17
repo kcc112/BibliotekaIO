@@ -1,8 +1,6 @@
-from flask import render_template, session, redirect, url_for, current_app
+from datetime import date
 from .. import db
 from ..models import Announcement, Book, Borrow, Event, User
-from . import example_app
-from .forms import NameForm
 
 def add_book_to_db(book_to_add):
     book = Book.query.filter_by(name=book_to_add.name).first()
@@ -24,6 +22,12 @@ def test_add_some_books():
     b4 = Book(name="Mały Książę", author="Antoine de Saint-Exupéry", quantity=55, year=1943)
     b5 = Book(name="Dola człowiecza", author="André Malraux", quantity=12, year=1933)
 
+    # b1 = Book(name="Name1", pages="100")
+    # b2 = Book(name="Name2", pages="200")
+    # b3 = Book(name="Name3", pages="300")
+    # b4 = Book(name="Name4", pages="400")
+    # b5 = Book(name="Name5", pages="500")
+
     add_book_to_db(b1)
     add_book_to_db(b2)
     add_book_to_db(b3)
@@ -31,18 +35,19 @@ def test_add_some_books():
     add_book_to_db(b5)
 
 def test_add_other_data():
-    new_announcement1 = Announcement(nazwa="Ogłoszenie1", opis="Opis1")
-    new_announcement2 = Announcement(nazwa="Ogłoszenie2", opis="Opis2")
-    new_announcement3 = Announcement(nazwa="Ogłoszenie3", opis="Opis3")
+    new_announcement1 = Announcement(title="Ogłoszenie1", description="Opis1", date=date(2002, 12, 31))
+    new_announcement2 = Announcement(title="Ogłoszenie2", description="Opis2", date=date(2002, 12, 31))
+    new_announcement3 = Announcement(title="Ogłoszenie3", description="Opis3", date=date(2002, 12, 31))
     db.session.add(new_announcement1)
     db.session.add(new_announcement2)
     db.session.add(new_announcement3)
-    new_event1 = Event(nazwa="Wydarzenie1", data="data1")
-    new_event2 = Event(nazwa="Wydarzenie2", data="data2")
-    new_event3 = Event(nazwa="Wydarzenie3", data="data3")
+    new_event1 = Event(name="Wydarzenie1", date="data1")
+    new_event2 = Event(name="Wydarzenie2", date="data2")
+    new_event3 = Event(name="Wydarzenie3", date="data3")
     db.session.add(new_event1)
     db.session.add(new_event2)
     db.session.add(new_event3)
     new_user1 = User()
     db.session.add(new_user1)
     db.session.commit()
+

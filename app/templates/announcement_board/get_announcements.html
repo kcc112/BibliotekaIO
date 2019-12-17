@@ -1,0 +1,26 @@
+{% extends "main/application_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Coworker anouncements only{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<h1>Coworker anouncements</h1>
+<table class=announcements>
+  <tr>
+    <th>#
+    <th>Title
+    <th>Content
+    <th>Date Added
+      {%- for announcement in announcements %}
+      {%- if announcement.readerVisibility == 1 %}
+  <tr class=title>
+    <td>{{ announcement.id }}
+    <td>{{ announcement.title }}
+    <td>{{ announcement.description }}
+    <td>{{ announcement.date.strftime('%Y-%m-%d') }}
+      {% endif %}
+      {%- endfor %}
+</table>
+{% endblock %}

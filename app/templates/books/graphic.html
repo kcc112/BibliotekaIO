@@ -1,0 +1,26 @@
+{% extends "main/application_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Grafiki{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>Grafiki</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Akcje</th>
+        </tr>
+        {% for graphic in graphics %}
+        <tr>
+            <td>{{ graphic.id }}</td>
+            <td>{{ graphic.name }}</td>
+            <td> {{ graphic.action }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
