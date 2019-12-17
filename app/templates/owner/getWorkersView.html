@@ -1,25 +1,33 @@
-{% extends "owner/layout.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "owner/base.html" %}
 
 {% block title %}Add Announcement{% endblock %}
 {% block navbar %}
 {{ super() }}
 {% endblock %}
 {% block page_content %}
-<h1>Workers</h1>
-<table class=users>
-    <tr>
-        <th>#
-        <th>user name
-        <th>role id
+<div class="page-header announcements">
+    <h1>Workers</h1>
+    <table class="table users">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>User name</th>
+                <th>Role</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
             {%- for user in users %}
-    <tr class=title>
-        <td>{{ user.id }}
-        <td>{{ user.email }}
-        <td>{{ user.user_type }}
-        <td><a href="{{ url_for('owner_app.deleteWorker', id=user.id) }}">Delete</a>
+            <tr class=title>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.user_type }}</td>
+                <td><a href="{{ url_for('owner_app.deleteWorker', id=user.id) }}">Delete</a>
+            </tr>
             {%- endfor %}
-</table>
-<p><a href="{{ url_for('owner_app.addWorker') }}">Add new worker</a></p>
-<a href="{{ url_for('owner_app.ownerView') }}">Return</a>
+        </tbody>
+    </table>
+    <p><a href="{{ url_for('owner_app.addWorker') }}">Add new worker</a></p>
+    <a href="{{ url_for('owner_app.ownerView') }}">Return</a>
+</div>
 {% endblock %}

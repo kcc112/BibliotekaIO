@@ -10,7 +10,7 @@ import datetime
 @owner_app.route('/ownerModule/ownerView')
 @login_required
 def ownerView():
-    return render_template('/owner/layout.html')
+    return render_template('/owner/schedules_or_workers.html')
 
 
 @owner_app.route('/ownerModule/getWorkers')
