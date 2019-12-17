@@ -1,5 +1,4 @@
 {% extends "reader/reader_base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Borrows{% endblock %}
 {% block navbar %}
@@ -18,7 +17,7 @@
             {% for announcement in announcements %}
                 <tr>
                     <td>{{ announcement.id }}</td>
-                    <td>{{ announcement.title }}</td>
+                    <td>{{ announcement.nazwa }}</td>
                 </tr>
             {% endfor %}
         </table>

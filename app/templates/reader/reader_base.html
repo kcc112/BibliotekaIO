@@ -1,100 +1,41 @@
 {% extends "bootstrap/base.html" %}
-<h1>
-    {% block title %}Example App{% endblock %}
-</h1>
-{% block head %}
-{{ super() }}
-{% endblock %}
+{% block title %}Reader{% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/Reader">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Books">Books</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Borrows">Borrows</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Events">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Announcements">Announcements</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Profiles">Profiles</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Reader/Edit">Edit</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('registration_login_app.logout') }}">Logout</a>
-            </li>
-        </ul>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"
+            data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Reader">Home</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/Reader/Books">Books</a></li>
+                <li><a href="/Reader/Borrows">Borrows</a></li>
+                <li><a href="/Reader/Events">Events</a></li>
+                <li><a href="/Reader/Announcements">Announcements</a></li>
+                <li><a href="/Reader/Profiles">Profiles</a></li>
+                <li><a href="/Reader/Edit">Edit</a></li>
+            </ul>
+            <span class="greet">Hello, {{ session["name"] }}</span>
+        </div>
     </div>
-</nav>
-{% endblock %}
-
-{% block content %}
-<div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button"></button>
-        {{ message }}
-    </div>
-    {% endfor %}
-
-    {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
 
-{% block scripts %}
-{{ super() }}
-{% endblock %}
-
-
-
-
-{#{% extends "bootstrap/base.html" %}#}
-{#{% block title %}Reader{% endblock %}#}
-{##}
-{#{% block navbar %}#}
-{#<div class="navbar navbar-inverse" role="navigation">#}
-{#    <div class="container">#}
-{#        <div class="navbar-header">#}
-{#            <button type="button" class="navbar-toggle"#}
-{#            data-toggle="collapse" data-target=".navbar-collapse">#}
-{#                <span class="sr-only">Toggle navigation</span>#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#            </button>#}
-{#            <a class="navbar-brand" href="/Reader">Home</a>#}
-{#        </div>#}
-{#        <div class="navbar-collapse collapse">#}
-{#            <ul class="nav navbar-nav">#}
-{#                <li><a href="/Reader/Books">Books</a></li>#}
-{#                <li><a href="/Reader/Borrows">Borrows</a></li>#}
-{#                <li><a href="/Reader/Events">Events</a></li>#}
-{#                <li><a href="/Reader/Announcements">Announcements</a></li>#}
-{#                <li><a href="/Reader/Profiles">Profiles</a></li>#}
-{#                <li><a href="/Reader/Edit">Edit</a></li>#}
-{#            </ul>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
-{##}
 {#{% block content %}<div class="container">
-{#    <div class="page-header">#}
-{#        <h1>Hello, {{ name }}!</h1>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
+    <div class="page-header">
+        <h1>Hello, {{ name }}!</h1>
+    </div>
+</div>
+{% endblock %}#}
 

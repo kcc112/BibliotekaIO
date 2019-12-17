@@ -10,12 +10,12 @@
         <h1>Profile użytkowników</h1>
         <table>
             <tr>
-                <th>{{ Nazwa }}</th>
+                <th>Nazwa</th>
             </tr>
             {% for user in users %}
-            <tr>
-                <li><a href="/Reader/Profile/{{ user.id }}">{{ user.email }}</a></li>
-            </tr>
+                <tr>
+                    <td>{{ user.nazwa }}</td>
+                </tr>
             {% endfor %}
         </table>
     </div>
