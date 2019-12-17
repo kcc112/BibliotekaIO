@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Strona startowa</title>
-</head>
-<body>
-    <p><a href="/user">Panel użytkownika</a></p>
-    <p><a href="/admin">Panel administratora</a></p>
-</body>
-</html>
+{% extends "events/base.html" %}
+
+{% block title %}Strona startowa{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<p><a href="/user">Panel użytkownika</a></p>
+<p><a href="/admin">Panel administratora</a></p>
+{% endblock %}
