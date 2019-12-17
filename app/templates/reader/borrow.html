@@ -1,0 +1,67 @@
+{% extends "reader/reader_base.html" %}
+
+{% block title %}Borrows{% endblock %}
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if do_alert_success %}
+    <div class="alert alert-success" role="alert">
+        You have borrowed a book <strong>{{ book.name }}</strong> written by <strong>{{ book.author }}</strong>
+      </div>
+    {% endif %}
+    <div class="page-header">
+        <h1>Borrow</h1>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Quantity</th>
+            <th>Year</th>
+        </tr>
+
+        <tr>
+            <td>{{ book.name }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.quantity }}</td>
+            <td>{{ book.year }}</td>
+        </tr>
+    </table>
+    <br/><br/>
+    <div class="col-md-12">
+
+        <br/>
+        <form action="#" method="post">
+            <div class=col-md-5>
+                <h2>Start date</h2>
+                <br/>
+                {{ dateform.start_date(class='datepicker-start') }}
+            </div>
+            <div class=col-md-5>
+            <h2>End date</h2>
+                <br/>
+                {{ dateform.end_date(class='datepicker-end') }}
+            </div>
+            <div class=col-md-2>
+                {{ dateform.submit(class="btn btn-primary") }}
+            </div>
+            {{ dateform.hidden_tag() }}
+        </form>
+    </div>
+
+    <div class="col-md-5">
+
+        <br/>
+        <form action="#" method="post">
+
+        </form>
+    </div>
+    <div class="col-md-2">
+
+
+    </div>
+</div>
+{% endblock %}

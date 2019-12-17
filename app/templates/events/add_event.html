@@ -1,0 +1,33 @@
+{% extends "events/base.html" %}
+
+{% block title %}Strona startowa{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<h1>Dodaj nowe wydarzenie</h1>
+<form action="" method=post>
+    <p>
+        Identyfikator:
+        <input type=number name=id value="{{ request.form.id }}">
+        <p>
+            Nazwa wydarzenia:
+            <input type=text name=name value="{{ request.form.name }}">
+            <p>
+                Opis wydarzenia:
+                <input type=text name=desc value="{{ request.form.desc }}">
+                <p>
+                    Data:
+                    <input type=datetime-local name=date value="{{ request.form.date }}">
+                    <p>
+                        Dodaj sale:
+                        <select name="auditorium">
+                            {% for aud in auditoriums %}
+                            <option value="{{ request.form.auditorium }}">{{ aud.number }}</option>
+                            {% endfor %}
+                        </select>
+                        <p>
+                            <input type=submit value="Stwórz wydarzenie">
+                            <a href="{{ url_for('events_app.get_all_event') }}">Powrót do wszystkich wydarzenie</a>
+</form>
+{% endblock %}

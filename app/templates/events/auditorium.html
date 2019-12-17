@@ -1,0 +1,9 @@
+{% extends "events/base.html" %}
+
+{% block title %}{{ auditorium.id }}{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<h1>Szczegóły sali o id {{ event.id }}</h1>
+{% endblock %}
