@@ -1,0 +1,33 @@
+{% extends "announcements/base.html" %}
+
+{% block title %}Reader announcements{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<div class="page-header announcements">
+  <h1>All anouncements</h1>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Date Added</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for announcement in announcements %}
+      {%- if announcement.readerVisibility == 0 %}
+      <tr>
+        <td>{{ announcement.id }}
+        <td>{{ announcement.title }}
+        <td>{{ announcement.description }}
+        <td>{{ announcement.date.strftime('%Y-%m-%d') }}
+      </tr>
+      {% endif %}
+      {%- endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
