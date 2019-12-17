@@ -1,0 +1,29 @@
+{% extends "announcements/base.html" %}
+
+{% block title %}Add Announcement{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<div class="d-flex justify-content-center">
+    <div class="d-flex flex-column">
+        <h1>Add new announcement</h1>
+        <form action="" method=post>
+            <div class="form-group">
+                <label for="id">Id</label>
+                <input class="form-control" type=number name=id value="{{ request.form.id }}">
+                <label for="title">Announcement title</label>
+                <input class="form-control" type=text name=title value="{{ request.form.title }}">
+                <label for="description">Announcement content</label>
+                <input class="form-control" type=text name=description value="{{ request.form.description }}">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="check" name=readerVisibility value="{{ request.form.readerVisibility }}>
+                    <label class=" form-check-label" for="check">Announcement visible only to coworkers</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ url_for('announcements_app.worker') }}">Return</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
