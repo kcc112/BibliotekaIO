@@ -5,6 +5,25 @@ from flask_login import current_user, login_user, logout_user, login_required
 from ..models import User
 from werkzeug.urls import url_parse
 from .. import db
+from functools import wraps
+
+
+def required_roles(*roles):
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if get_current_user_role() not in roles:
+                flash('Authentication error, please check your details and try again', 'error')
+                return redirect(url_for('main_app.home'))
+            return f(*args, **kwargs)
+
+        return wrapped
+
+    return wrapper
+
+
+def get_current_user_role():
+    return current_user.user_type
 
 
 @registration_login_app.route('/index')
@@ -53,3 +72,5 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('registration_login_app.login'))
     return render_template('/registration_login/register.html', title='Register', form=form)
+
+

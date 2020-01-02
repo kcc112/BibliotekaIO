@@ -3,6 +3,8 @@ import datetime
 from .. import db
 from ..models import Event, User, Auditorium
 from . import events_app
+from app.registration_login_app.registration_login import required_roles
+
 
 @events_app.route('/event/home')
 def home():
@@ -15,6 +17,7 @@ def user_site():
 
 
 @events_app.route('/admin')
+@required_roles('admin')
 def admin_site():
     return render_template('/events/admin.html')
 
