@@ -59,7 +59,7 @@ class Borrow(db.Model):
     user_id = db.Column(db.Integer)
     # ksiazka_id = (db.Integer,db.ForeignKey('employee.id'))
     # user_id = (db.Integer,db.ForeignKey('users.id'))
-    book_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     start_date = db.Column(db.Date, default=date.today())
     end_date = db.Column(db.Date)

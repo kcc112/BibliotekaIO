@@ -16,6 +16,7 @@
                 <th>Autor</th>
                 <th>Dzień wypożyczenia</th>
                 <th>Dzień oddania</th>
+                <th>End</th>
             </tr>
             {% for borrow in borrows %}
             <tr>
@@ -23,6 +24,11 @@
                 <td>{{ borrowed_books[borrow.book_id].author }}</td>
                 <td>{{ borrow.start_date }}</td>
                 <td>{{ borrow.end_date }}</td>
+                <td>
+                    <form action="/Employee/Borrow/Ending/{{ borrow.id }}">
+                    <button type="submit" class="btn btn-primary">End</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

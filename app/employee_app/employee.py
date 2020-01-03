@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, flash
 from flask_login import login_required
 from .. import db
-from ..models import Book, Borrow
+from datetime import date
+from ..models import Book, Borrow, User
 from . import employee_app
 
 
@@ -83,6 +84,51 @@ def updateBook(id):
         return redirect('/Employee/Books')
     else:
         return render_template('./employee/update.html', book=book_to_update)
+
+
+@employee_app.route('/Employee/Clients')
+# @login_required
+def clients():
+    clients = User.query.filter_by(user_type='client').all()
+    return render_template("employee/clients.html", clients=clients)
+
+
+@employee_app.route('/Employee/Clients/<int:id>')
+# @login_required
+def clientsBorrows(id):
+    borrows = Borrow.query.filter_by(user_id=id).all()
+    borrowed_books_dictionary = {}
+    for borrow in borrows:
+        if borrow.book_id not in borrowed_books_dictionary:
+            book = Book.query.filter_by(id=borrow.book_id).first()
+            borrowed_books_dictionary[borrow.book_id] = book
+
+    return render_template('./reader/borrows.html', borrows=borrows, borrowed_books=borrowed_books_dictionary)
+
+
+@employee_app.route('/Employee/Clients/Delete/<int:id>')
+# @login_required
+def clientsDelete(id):
+    client_to_delete = User.query.get_or_404(id)
+
+    try:
+        db.session.delete(client_to_delete)
+        db.session.commit()
+        return redirect('/Employee/Clients')
+    except:
+        return 'Error in removing'
+
+
+@employee_app.route('/Employee/Borrow/Ending/<int:id>')
+# @login_required
+def borrowEnding(id):
+        borrow_to_end = Borrow.query.get_or_404(id)
+        borrow_to_end.end_date = date.today()
+        try:
+            db.session.commit()
+            return redirect('/Employee/Clients/' + str(borrow_to_end.user_id))
+        except:
+            return 'Error in ending'
 
 
 @employee_app.route('/borrows')
