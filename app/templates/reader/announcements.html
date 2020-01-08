@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/books.css') }}">
+</head>
+
 {% extends "reader/reader_base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
@@ -10,16 +14,20 @@
 <div class="container">
     <div class="page-header">
         <h1>Ogłoszenia</h1>
-        <table>
+        <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
             </tr>
             {% for announcement in announcements %}
+            {% if announcement.readerVisibility %}
                 <tr>
-                    <td>{{ announcement.id }}</td>
                     <td>{{ announcement.title }}</td>
+                    <td>{{ announcement.description }}</td>
+                    <td>{{ announcement.date }}</td>
                 </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>
