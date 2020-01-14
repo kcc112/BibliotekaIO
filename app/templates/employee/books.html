@@ -6,7 +6,8 @@
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
-    <h1>Books</h1>
+    <h1>Books <button class="btn btn-success" onclick="window.location.href = '/Employee/Books/Add'">Add Book</button></h1>
+
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -33,6 +34,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="/Employee/Books/Add">Add</a>
 </div>
 {% endblock %}

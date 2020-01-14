@@ -8,7 +8,7 @@ from . import employee_app
 
 @employee_app.route('/Employee')
 def employee():
-    return render_template('employee/employee.html')
+    return redirect('/Employee/Books')
 
 
 @employee_app.route('/Employee/Books', methods=['POST', 'GET'])
@@ -103,7 +103,7 @@ def clientsBorrows(id):
             book = Book.query.filter_by(id=borrow.book_id).first()
             borrowed_books_dictionary[borrow.book_id] = book
 
-    return render_template('./reader/borrows.html', borrows=borrows, borrowed_books=borrowed_books_dictionary)
+    return render_template('./employee/borrows.html', borrows=borrows, borrowed_books=borrowed_books_dictionary)
 
 
 @employee_app.route('/Employee/Clients/Delete/<int:id>')
@@ -135,7 +135,7 @@ def borrowEnding(id):
 @login_required
 def borrow():
     borrow = Borrow.query.order_by(Borrow.id).all()
-    return render_template("/employee/borrow.html", borrows=borrow)
+    return render_template("/employee/borrowStare.html", borrows=borrow)
 
 
 @employee_app.route('/borrows/delete/<int:id>')
