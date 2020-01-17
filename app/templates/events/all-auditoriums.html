@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+
+{% block title %}Wszystkie sale{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+<h1>Wszystkie sale</h1>
+<table class=todos>
+  <tr>
+    <th>#
+    <th>Liczba osób mieszczących się w sali
+    <th>Numer sali (?)
+      {%- for a in auditoriums %}
+  <tr class=title>
+    <td>{{ a.id }}
+    <td>{{ a.maxPlaces }}
+    <td>{{ a.number }}
+      {%- endfor %}
+</table>
+{% endblock %}

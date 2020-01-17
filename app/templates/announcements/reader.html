@@ -1,5 +1,4 @@
-{% extends "main/application_base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "announcements/base.html" %}
 
 {% block title %}Worker & Owner Announcements Panel{% endblock %}
 {% block navbar %}
@@ -8,7 +7,8 @@
 {% block page_content %}
 <div class="page-header">
     <div>
-        <h3> <a link href={{ url_for('announcements_app.get_all_reader_announcements') }}>Get all announcements</a></h3>
+        <h3><a link href="{{ url_for('announcements_app.get_all_reader_announcements') }}">Get all announcements</a>
+        </h3>
     </div>
 </div>
 {% endblock %}

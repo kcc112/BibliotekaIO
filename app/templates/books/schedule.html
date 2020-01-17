@@ -1,5 +1,4 @@
-{% extends "main/application_base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "books/base.html" %}
 
 {% block title %}Grafiki{% endblock %}
 {% block navbar %}
@@ -18,7 +17,7 @@
         <tr>
             <td>{{ graphic.id }}</td>
             <td>{{ graphic.name }}</td>
-            <td> {{ graphic.action }}</td>
+            <td>{{ graphic.action }}</td>
         </tr>
         {% endfor %}
     </table>

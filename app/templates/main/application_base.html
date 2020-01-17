@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 <h1>
-    {% block title %}Example App{% endblock %}
+    {% block title %}Main Page{% endblock %}
 </h1>
 {% block head %}
 {{ super() }}
@@ -22,13 +22,13 @@
                 <a class="nav-link" href="{{ url_for('books_app.borrow') }}">Borrows</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('books_app.event') }}">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('books_app.graphic') }}">Graphics</a>
+                <a class="nav-link" href="{{ url_for('owner_app.ownerView') }}">Schedules</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('announcements_app.home') }}">Announcements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('events_app.home') }}">Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('registration_login_app.logout') }}">Logout</a>
@@ -41,8 +41,7 @@
 {% block content %}
 <div class="container">
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button"></button>
+    <div class="alert alert-warning" role="alert">
         {{ message }}
     </div>
     {% endfor %}

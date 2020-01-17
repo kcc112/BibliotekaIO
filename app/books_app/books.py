@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, flash
 from flask_login import login_required
 from .. import db
-from ..models import Book, Event, Graphic, Borrow
+from ..models import Book, Borrow
 from . import books_app
 
 
@@ -64,23 +64,6 @@ def updateBook(id):
         return redirect('/books')
     else:
         return render_template('/books/update.html', ksiazka=book_to_update)
-
-
-@books_app.route('/graphics')
-@login_required
-def graphic():
-    graphic = Graphic.query.order_by(Graphic.id).all()
-    return render_template('/books/graphic.html', graphics=graphic)
-
-
-@books_app.route('/events')
-@login_required
-def event():
-    event = Event.query.order_by(Event.id).all()
-    # b = Event(id=2, nazwa="nazwa", data='data')
-    # db.session.add(b)
-    # db.session.commit()
-    return render_template("/books/event.html", events=event)
 
 
 @books_app.route('/borrows')

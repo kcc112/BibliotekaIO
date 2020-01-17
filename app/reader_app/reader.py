@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, current_app, flash, request
+from flask import render_template, session, redirect, flash, request
 from .. import db
 from ..models import Announcement, Book, Borrow, Event, User
 from . import reader_app
@@ -14,7 +14,6 @@ def reader():
 
 @reader_app.route("/reader/books")
 def books():
-    #test_add_some_books()
     books_query = db.session.query(Book)
     books_table = BookTable(books_query)
     return render_template('./reader/books.html') + books_table.__html__()
@@ -37,14 +36,14 @@ def borrow():
 
 @reader_app.route("/reader/borrows")
 def borrows():
-    user_borrows = Borrow.query.order_by(Borrow.id).filter_by(user_id=current_user.id).all()
+    user_borrows = Borrow.query.order_by(
+        Borrow.id).filter_by(user_id=current_user.id).all()
     borrowed_books_dictionary = {}
     for borrow in user_borrows:
         if borrow.book_id not in borrowed_books_dictionary:
             book = Book.query.filter_by(id=borrow.book_id).first()
             borrowed_books_dictionary[borrow.book_id] = book
 
-    # return borrowed_books_dictionary[1].name
     return render_template('./reader/borrows.html', borrows=user_borrows, borrowed_books=borrowed_books_dictionary)
 
 
@@ -69,7 +68,8 @@ def profiles():
 @reader_app.route("/reader/profile/<int:id>")
 def profile(id):
     user = User.query.filter_by(id=id).first()
-    user_borrows = Borrow.query.order_by(Borrow.id).filter_by(user_id=user.id).all()
+    user_borrows = Borrow.query.order_by(
+        Borrow.id).filter_by(user_id=user.id).all()
     borrowed_books_dictionary = {}
     for borrow in user_borrows:
         if borrow.book_id not in borrowed_books_dictionary:
@@ -89,7 +89,6 @@ def change_password():
     form = ChangePasswordForm()
     if form.validate_on_submit():
         if current_user.check_password(form.old_password.data):
-            # current_user.password_hash = form.password.data
             current_user.set_password(form.password.data)
             db.session.add(current_user)
             db.session.commit()
@@ -112,16 +111,3 @@ def change_email():
     else:
         flash('Invalid Email.')
     return render_template("/reader/change_email.html", form=form)
-
-
-
-# @reader_app.route("/reader/fill")
-# @login_required
-# def fill():
-#     test_add_some_books()
-#     test_add_other_data()
-#     return redirect("url_for('reader_app.reader'))
-
-
-
-

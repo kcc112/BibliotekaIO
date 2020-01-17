@@ -1,0 +1,10 @@
+{% extends "events/base.html" %}
+
+{% block title %}{{ event.id }}{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block body %}
+<h1>Szczegóły wydarzenia {{ event.id }}</h1>
+<p><a href={{ url_for('events_app.delete_event', id=event.id) }}>Usun to wydarzenie</a></p>
+{% endblock %}

@@ -5,25 +5,25 @@ from ..models import Announcement
 from . import announcements_app
 from datetime import date
 
-@announcements_app.route('/announcement_board')
+@announcements_app.route('/announcements')
 @login_required
 def home():
-    return render_template("announcement_board/reader_or_worker.html")
+    return render_template("/announcements/reader_or_worker.html")
 
 
-@announcements_app.route('/announcement_board/reader')
+@announcements_app.route('/announcements/reader')
 @login_required
 def reader():
-    return render_template("announcement_board/reader.html")
+    return render_template("/announcements/reader.html")
 
 
-@announcements_app.route('/announcement_board/worker')
+@announcements_app.route('/announcements/worker')
 @login_required
 def worker():
-    return render_template("announcement_board/worker.html")
+    return render_template("/announcements/worker.html")
 
 
-@announcements_app.route('/announcement_board/worker/add_announcement', methods=['GET', 'POST'])
+@announcements_app.route('/announcements/worker/add_announcement', methods=['GET', 'POST'])
 @login_required
 def add_announcement():
     if request.method == 'POST':
@@ -32,36 +32,36 @@ def add_announcement():
         db.session.add(announcement)
         db.session.commit()
         return redirect(url_for('announcements_app.worker'))
-    return render_template('announcement_board/add_announcement.html',)
+    return render_template('announcements/add_announcement.html',)
 
 
-@announcements_app.route('/announcement_board/worker/get_announcements')
+@announcements_app.route('/announcements/worker/get_announcements')
 @login_required
 def get_announcements():
-    return render_template('announcement_board/get_announcements.html',
+    return render_template('announcements/get_announcements.html',
                            announcements=Announcement.query.order_by(
                                Announcement.id.desc()).all()
                            )
 
 
-@announcements_app.route('/announcement_board/worker/get_all_announcements')
+@announcements_app.route('/announcements/worker/get_all_announcements')
 @login_required
 def get_all_announcements():
-    return render_template('announcement_board/get_all_announcements.html',
+    return render_template('announcements/get_all_announcements.html',
                            announcements=Announcement.query.order_by(
                                Announcement.id.desc()).all()
                            )
 
 
-@announcements_app.route('/announcement_board/worker/get_announcement/<id>')
+@announcements_app.route('/announcements/worker/get_announcement/<id>')
 @login_required
 def get_announcement(id):
-    return render_template('announcement_board/announcement.html',
+    return render_template('announcements/announcement.html',
                            announcement=Announcement.query.get_or_404(id)
                            )
 
 
-@announcements_app.route('/announcement_board/worker/edit_announcement/<id>',  methods=['GET', 'POST'])
+@announcements_app.route('/announcements/worker/edit_announcement/<id>',  methods=['GET', 'POST'])
 @login_required
 def edit_announcement(id):
     if request.method == 'POST':
@@ -73,21 +73,21 @@ def edit_announcement(id):
         announcement.readerVisibility = 'readerVisibility' in request.form
         db.session.commit()
         return redirect(url_for('announcements_app.worker'))
-    return render_template('announcement_board/edit_announcement.html',
+    return render_template('announcements/edit_announcement.html',
                            announcement=Announcement.query.get_or_404(id)
                            )
 
 
-@announcements_app.route('/announcement_board/reader/get_all_reader_announcements')
+@announcements_app.route('/announcements/reader/get_all_reader_announcements')
 @login_required
 def get_all_reader_announcements():
-    return render_template('announcement_board/get_all_reader_announcements.html',
+    return render_template('announcements/get_all_reader_announcements.html',
                            announcements=Announcement.query.order_by(
                                Announcement.id.desc()).all()
                            )
 
 
-@announcements_app.route('/announcement_board/worker/delete-announcement/<id>')
+@announcements_app.route('/announcements/worker/delete-announcement/<id>')
 @login_required
 def delete_announcement(id):
     db.session.delete(Announcement.query.get_or_404(id))
@@ -95,7 +95,7 @@ def delete_announcement(id):
     return redirect(url_for('announcements_app.get_all_announcements'))
 
 
-@announcements_app.route('/announcement_board/worker/update-announcement/<id>')
+@announcements_app.route('/announcements/worker/update-announcement/<id>')
 @login_required
 def update_announcement(id, Data):
     announcemt = Announcement.query.get_or_404(id)
@@ -103,4 +103,4 @@ def update_announcement(id, Data):
     print(Data)
 
     db.session.commit()
-    return redirect(url_for('announcements_app.get_announcement/<id>'))
+    return redirect(url_for('announcements.get_announcement/<id>'))
