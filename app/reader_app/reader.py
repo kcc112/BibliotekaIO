@@ -94,7 +94,7 @@ def change_password():
             db.session.add(current_user)
             db.session.commit()
             flash('Your password has been updated.')
-            return redirect("/Reader/Edit/Password")
+            return redirect(url_for('reader_app.change_password'))
         else:
             flash('Invalid password.')
     return render_template("reader/change_password.html", form=form)
@@ -108,19 +108,19 @@ def change_email():
         db.session.add(current_user)
         db.session.commit()
         flash('Your Email has been updated.')
-        return redirect("/reader/edit/email")
+        return redirect(url_for('reader_app.change_email'))
     else:
         flash('Invalid Email.')
     return render_template("/reader/change_email.html", form=form)
 
 
 
-# @reader_app.route("/Reader/Fill")
+# @reader_app.route("/reader/fill")
 # @login_required
 # def fill():
 #     test_add_some_books()
 #     test_add_other_data()
-#     return redirect("/Reader")
+#     return redirect("url_for('reader_app.reader'))
 
 
 
