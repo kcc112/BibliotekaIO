@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/books.css') }}">
+</head>
+
 {% extends "reader/reader_base.html" %}
 
 {% block title %}Borrows{% endblock %}
@@ -18,12 +22,12 @@
                 <th>Dzień oddania</th>
             </tr>
             {% for borrow in borrows %}
-            <tr>
-                <td>{{ borrowed_books[borrow.book_id].name }}</td>
-                <td>{{ borrowed_books[borrow.book_id].author }}</td>
-                <td>{{ borrow.start_date }}</td>
-                <td>{{ borrow.end_date }}</td>
-            </tr>
+                <tr>
+                    <td>{{ borrowed_books[borrow.book_id].name }}</td>
+                    <td>{{ borrowed_books[borrow.book_id].author }}</td>
+                    <td>{{ borrow.start_date }}</td>
+                    <td>{{ borrow.end_date }}</td>
+                </tr>
             {% endfor %}
         </table>
     </div>

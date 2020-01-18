@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/books.css') }}">
+</head>
+
 {% extends "reader/reader_base.html" %}
 
 {% block navbar %}
@@ -8,15 +12,17 @@
 <div class="container">
     <div class="page-header">
         <h1>Wydarzenia</h1>
-        <table>
+        <table class="table">
             <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Auditorium</th>
             </tr>
             {% for event in events %}
                 <tr>
-                    <td>{{ event.id }}</td>
                     <td>{{ event.name }}</td>
+                    <td>{{ event.date }}</td>
+                    <td>{{ event.auditorium }}</td>
                 </tr>
             {% endfor %}
         </table>
