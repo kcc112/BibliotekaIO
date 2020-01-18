@@ -4,7 +4,6 @@ from ..models import Announcement, Book, Borrow, Event, User
 from . import reader_app
 from flask_login import login_required, current_user
 from app.registration_login_app.registration_login import required_roles
-from .books import test_add_some_books, test_add_other_data
 from .forms import ChangePasswordForm, ChangeEmailForm, BookTable, BorrowDateForm
 
 
@@ -149,11 +148,3 @@ def change_email():
     else:
         flash('Invalid Email.')
     return render_template("/reader/change_email.html", form=form)
-
-
-# @reader_app.route("/fill")
-# @required_roles('client')
-# def fill():
-#     test_add_some_books()
-#     test_add_other_data()
-#     return redirect(url_for('reader_app.reader'))
