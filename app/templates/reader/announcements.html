@@ -23,7 +23,7 @@
             {% for announcement in announcements %}
             {% if announcement.readerVisibility %}
                 <tr>
-                    <td>{{ announcement.title }}</td>
+                    <td><a href="{{ url_for('reader_app.announcement', id = announcement.id) }}">{{ announcement.title }}</a></td>
                     <td>{{ announcement.description }}</td>
                     <td>{{ announcement.date }}</td>
                 </tr>

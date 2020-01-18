@@ -20,7 +20,7 @@
             </tr>
             {% for event in events %}
                 <tr>
-                    <td>{{ event.name }}</td>
+                    <td><a href="{{ url_for('reader_app.event', id = event.id) }}">{{ event.name }}</a></td>
                     <td>{{ event.date }}</td>
                     <td>{{ event.auditorium }}</td>
                 </tr>

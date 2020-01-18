@@ -58,11 +58,24 @@ def events():
     return render_template('./reader/events.html', events=events)
 
 
+@reader_app.route("/reader/event/<int:id>")
+@login_required
+def event(id):
+    event = Event.query.filter_by(id=id).first()
+    return render_template('./reader/event.html', event=event)
+
+
 @reader_app.route("/reader/announcements")
 @login_required
 def announcements():
     announcements = Announcement.query.order_by(Announcement.id).all()
     return render_template('./reader/announcements.html', announcements=announcements)
+
+@reader_app.route("/reader/announcement/<int:id>")
+@login_required
+def announcement(id):
+    announcement = Announcement.query.filter_by(id=id).first()
+    return render_template('./reader/announcement.html', announcement=announcement)
 
 
 @reader_app.route("/reader/profiles")

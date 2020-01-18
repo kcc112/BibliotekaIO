@@ -11,16 +11,14 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Profile użytkowników</h1>
-        <table>
+        <h1>{{ announcement.title }}</h1>
+        <table class="table">
             <tr>
-                <th>{{ Nazwa }}</th>
+                <th>Date: {{ announcement.date }}</th>
             </tr>
-            {% for user in users %}
             <tr>
-                <li><a href="{{ url_for('reader_app.profile', id = user.id) }}">{{ user.email }}</a></li>
+                <th>{{ announcement.description }}</th>
             </tr>
-            {% endfor %}
         </table>
     </div>
 </div>
