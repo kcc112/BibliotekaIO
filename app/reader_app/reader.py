@@ -9,12 +9,14 @@ from .forms import ChangePasswordForm, ChangeEmailForm, BookTable, BorrowDateFor
 
 
 @reader_app.route("/reader")
+@login_required
 @required_roles('client')
 def reader():
     return render_template('./reader/home.html', current_user=current_user)
 
 
 @reader_app.route("/reader/books")
+@login_required
 @required_roles('client')
 def books():
     books_query = db.session.query(Book)
@@ -23,6 +25,7 @@ def books():
 
 
 @reader_app.route("/reader/borrow", methods=['GET', 'POST'])
+@login_required
 @required_roles('client')
 def borrow():
     book = Book.query.filter_by(id=request.args["id"]).first()
@@ -39,6 +42,7 @@ def borrow():
 
 
 @reader_app.route("/reader/borrows")
+@login_required
 @required_roles('client')
 def borrows():
     user_borrows = Borrow.query.order_by(
@@ -53,6 +57,7 @@ def borrows():
 
 
 @reader_app.route("/reader/events")
+@login_required
 @required_roles('client')
 def events():
     events = Event.query.order_by(Event.id).all()
@@ -60,6 +65,7 @@ def events():
 
 
 @reader_app.route("/reader/event/<int:id>")
+@login_required
 @required_roles('client')
 def event(id):
     event = Event.query.filter_by(id=id).first()
@@ -67,12 +73,14 @@ def event(id):
 
 
 @reader_app.route("/reader/announcements")
+@login_required
 @required_roles('client')
 def announcements():
     announcements = Announcement.query.order_by(Announcement.id).all()
     return render_template('./reader/announcements.html', announcements=announcements)
 
 @reader_app.route("/reader/announcement/<int:id>")
+@login_required
 @required_roles('client')
 def announcement(id):
     announcement = Announcement.query.filter_by(id=id).first()
@@ -80,6 +88,7 @@ def announcement(id):
 
 
 @reader_app.route("/reader/profiles")
+@login_required
 @required_roles('client')
 def profiles():
     users = User.query.order_by(User.id).all()
@@ -87,6 +96,7 @@ def profiles():
 
 
 @reader_app.route("/reader/profile/<int:id>")
+@login_required
 @required_roles('client')
 def profile(id):
     user = User.query.filter_by(id=id).first()
@@ -102,12 +112,14 @@ def profile(id):
 
 
 @reader_app.route("/reader/edit")
+@login_required
 @required_roles('client')
 def edit():
     return render_template('./reader/edit.html')
 
 
 @reader_app.route("/reader/edit/password", methods=['GET', 'POST'])
+@login_required
 @required_roles('client')
 def change_password():
     form = ChangePasswordForm()
@@ -124,6 +136,7 @@ def change_password():
 
 
 @reader_app.route("/reader/edit/email", methods=['GET', 'POST'])
+@login_required
 @required_roles('client')
 def change_email():
     form = ChangeEmailForm()
