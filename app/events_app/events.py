@@ -4,24 +4,26 @@ from .. import db
 from ..models import Event, User, Auditorium
 from . import events_app
 from app.registration_login_app.registration_login import required_roles
-
-
-@events_app.route('/event')
-def home():
-    return render_template('/events/index.html')
+from flask_login import login_required
 
 
 @events_app.route('/event/user')
+@required_roles('employee', 'client')
+@login_required
 def user_site():
     return render_template('/events/user.html')
 
 
 @events_app.route('/event/admin')
+@required_roles('admin')
+@login_required
 def admin_site():
     return render_template('/events/admin.html')
 
 
 @events_app.route('/event/admin/add-event', methods=['GET', 'POST'])
+@required_roles('admin')
+@login_required
 def add_event():
     if request.method == 'POST':
         data = datetime.datetime(*[int(v) for v in request.form['date'].replace('T', '-').replace(':', '-').split('-')])
@@ -34,6 +36,8 @@ def add_event():
 
 
 @events_app.route('/event/admin/delete-event/<id>')
+@required_roles('admin')
+@login_required
 def delete_event(id):
     db.session.delete(Event.query.get_or_404(id))
     db.session.commit()
@@ -41,6 +45,8 @@ def delete_event(id):
 
 
 @events_app.route('/event/admin/get-event/<id>')
+@required_roles('admin')
+@login_required
 def get_event(id):
     return render_template('/events/event.html',
                            event=Event.query.get_or_404(id)
@@ -48,6 +54,8 @@ def get_event(id):
 
 
 @events_app.route('/event/admin/all-events')
+@required_roles('admin')
+@login_required
 def get_all_event():
     return render_template('/events/all-events.html',
                            events=Event.query.order_by(Event.id.desc()).all()
@@ -55,6 +63,8 @@ def get_all_event():
 
 
 @events_app.route('/event/admin/auditorium')
+@required_roles('admin')
+@login_required
 def get_all_auditoriums():
     return render_template('/events/all-auditoriums.html',
                            auditoriums=Auditorium.query.order_by(Auditorium.number).all()
@@ -62,6 +72,8 @@ def get_all_auditoriums():
 
 
 @events_app.route('/event/admin/get-auditorium/<id>')
+@required_roles('admin')
+@login_required
 def get_auditorium(id):
     return render_template('/events/auditorium.html',
                            auditorium=Auditorium.query.get_or_404(id)
@@ -69,6 +81,8 @@ def get_auditorium(id):
 
 
 @events_app.route('/event/admin/add-auditorium', methods=['GET', 'POST'])
+@required_roles('admin')
+@login_required
 def add_auditorium():
     if request.method == 'POST':
         auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'], number=request.form['number'])
@@ -76,7 +90,3 @@ def add_auditorium():
         db.session.commit()
         return redirect(url_for('events_app.get_all_auditoriums'))
     return render_template('/events/add_auditorium.html')
-
-
-#if __name__ == '__main__':
- #   example_app.run()

@@ -46,7 +46,7 @@ def login():
         if not next_page or url_parse(next_page) != '':
             next_page = url_for('registration_login_app.login')
             if user.user_type == 'client':
-                next_page = url_for('registration_login_app.index')
+                next_page = url_for('reader_app.reader')
             if user.user_type == 'employee':
                 next_page = url_for('employee_app.employee')
             if user.user_type == 'admin':

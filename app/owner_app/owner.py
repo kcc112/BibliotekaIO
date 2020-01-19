@@ -4,28 +4,33 @@ from .. import db
 from ..models import User, WorkSchedule
 from . import owner_app
 from ..registration_login_app import forms
+from app.registration_login_app.registration_login import required_roles
 import datetime
 
 
 @owner_app.route('/ownerModule/ownerView')
+@required_roles('admin')
 @login_required
 def ownerView():
     return render_template('/owner/schedules_or_workers.html')
 
 
 @owner_app.route('/ownerModule/getWorkers')
+@required_roles('admin')
 @login_required
 def getWorkers():
     return render_template('owner/getWorkersView.html', users=User.query.order_by(User.id.desc()).all())
 
 
 @owner_app.route('/ownerModule/getWorkSchedules')
+@required_roles('admin', 'employee')
 @login_required
 def getWorkSchedules():
     return render_template('/owner/workSchedules.html', workSchedules=WorkSchedule.query.order_by(WorkSchedule.id.desc()).all())
 
 
 @owner_app.route('/ownerModule/addWorkSchedule', methods=['GET', 'POST'])
+@required_roles('admin')
 @login_required
 def addWorkSchedule():
     if request.method == 'POST':
@@ -38,6 +43,7 @@ def addWorkSchedule():
 
 
 @owner_app.route('/ownerModule/deleteWorkSchedule/<id>')
+@required_roles('admin')
 @login_required
 def deleteWorkSchedule(id):
     db.session.delete(WorkSchedule.query.get_or_404(id))
@@ -46,6 +52,7 @@ def deleteWorkSchedule(id):
 
 
 @owner_app.route('/ownerModule/editWorkSchedule/<id>', methods=['GET', 'POST'])
+@required_roles('admin')
 @login_required
 def editWorkSchedule(id):
     workSchedule = WorkSchedule.query.get(id)
@@ -60,6 +67,7 @@ def editWorkSchedule(id):
 
 
 @owner_app.route('/ownerModule/addWorker', methods=['GET', 'POST'])
+@required_roles('admin')
 @login_required
 def addWorker():
     form = forms.RegistrationForm()
@@ -74,6 +82,7 @@ def addWorker():
 
 
 @owner_app.route('/ownerModule/deleteWorker/<id>')
+@required_roles('admin')
 @login_required
 def deleteWorker(id):
     db.session.delete(User.query.get_or_404(id))

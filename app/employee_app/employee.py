@@ -15,11 +15,11 @@ def employee():
 
 
 @employee_app.route('/employee/books', methods=['POST', 'GET'])
-@required_roles('employee', 'client')
+@required_roles('employee')
 @login_required
 def getBooks():
-     books = Book.query.order_by(Book.id).all()
-     return render_template('./employee/books.html', books=books)
+    books = Book.query.order_by(Book.id).all()
+    return render_template('./employee/books.html', books=books)
 
 
 @employee_app.route('/employee/books/add', methods=['POST', 'GET'])

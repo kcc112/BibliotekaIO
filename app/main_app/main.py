@@ -6,9 +6,3 @@ from . import main_app
 @main_app.route('/')
 def route():
     return redirect(url_for('registration_login_app.login'))
-
-
-@main_app.route('/home')
-@login_required
-def home():
-    return render_template('/main/application_base.html')

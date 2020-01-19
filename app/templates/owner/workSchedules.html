@@ -1,4 +1,11 @@
+{% if current_user.has_role('employee') %}
+{% extends "employee/base.html" %}
+{% elif current_user.has_role('client')%}
+{% extends "reader/reader_base.html" %}
+{% else %}
 {% extends "owner/base.html" %}
+{% endif %}
+
 
 {% block title %}Add Announcement{% endblock %}
 {% block navbar %}
@@ -32,6 +39,9 @@
     {%- endfor %}
 </table>
 
+{% if current_user.has_role('employee') %}
+{% else %}
 <p><a href="{{ url_for('owner_app.addWorkSchedule') }}">Add new</a></p>
 <a href="{{ url_for('owner_app.ownerView') }}">Return</a>
+{% endif %}
 {% endblock %}

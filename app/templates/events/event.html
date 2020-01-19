@@ -1,4 +1,10 @@
-{% extends "events/base.html" %}
+{% if current_user.has_role('employee') %}
+{% extends "employee/base.html" %}
+{% elif current_user.has_role('client')%}
+{% extends "reader/reader_base.html" %}
+{% else %}
+{% extends "owner/base.html" %}
+{% endif %}
 
 {% block title %}{{ event.id }}{% endblock %}
 {% block navbar %}
