@@ -48,7 +48,7 @@ def login():
             if user.user_type == 'client':
                 next_page = url_for('registration_login_app.index')
             if user.user_type == 'employee':
-                next_page = url_for('employee_app.ownerView')
+                next_page = url_for('employee_app.employee')
             if user.user_type == 'admin':
                 next_page = url_for('owner_app.ownerView')
         return redirect(next_page)
