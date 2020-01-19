@@ -1,4 +1,4 @@
-{% extends "reader/reader_base.html" %}
+{% extends "employee/base.html" %}
 
 {% block title %}Borrows{% endblock %}
 
@@ -9,25 +9,29 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Wypożyczone książki</h1>
+        <h1>Borrowed Books</h1>
         <table class="table">
             <tr>
-                <th>Tytuł</th>
-                <th>Autor</th>
-                <th>Dzień wypożyczenia</th>
-                <th>Dzień oddania</th>
-                <th>End</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Start date</th>
+                <th>End date</th>
             </tr>
             {% for borrow in borrows %}
             <tr>
                 <td>{{ borrowed_books[borrow.book_id].name }}</td>
                 <td>{{ borrowed_books[borrow.book_id].author }}</td>
                 <td>{{ borrow.start_date }}</td>
-                <td>{{ borrow.end_date }}</td>
-                <td>
+{#                <td>{{ borrow.end_date }}</td>#}
+                <td>{% if borrow.end_date %}
+                    {{ borrow.end_date }}
+                    {% else %}
+
                     <form action="/employee/borrow/ending/{{ borrow.id }}">
                     <button type="submit" class="btn btn-primary">End</button>
                     </form>
+                {% endif %}
+
                 </td>
             </tr>
             {% endfor %}

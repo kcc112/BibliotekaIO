@@ -7,7 +7,7 @@ import enum
 
 
 # class Book(db.Model):
-#     __tablename__ = 'books'
+#     __tablename__ = 'employee'
 #     id = db.Column(db.Integer, primary_key=True)
 #     name = db.Column(db.String(64), nullable=False)
 #     pages = db.Column(db.Integer, default=0)
@@ -21,7 +21,6 @@ class Book(db.Model):
     __tablename__ = 'books'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    pages = db.Column(db.Integer, default=0)
     author = db.Column(db.String(64), index=True)
     quantity = db.Column(db.Integer, index=True)
     year = db.Column(db.Integer, index=True)
@@ -58,7 +57,7 @@ class Borrow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer)
     user_id = db.Column(db.Integer)
-    # ksiazka_id = (db.Integer,db.ForeignKey('books.id'))
+    # ksiazka_id = (db.Integer,db.ForeignKey('employee.id'))
     # user_id = (db.Integer,db.ForeignKey('users.id'))
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

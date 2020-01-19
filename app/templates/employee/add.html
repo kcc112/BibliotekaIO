@@ -1,0 +1,25 @@
+{% extends "employee/base.html" %}
+
+{% block title %}Update Book{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+{% block page_content %}
+ <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column">
+            <form action="/employee/books/add" method="POST">
+                <div class="form-group">
+                    <label for="name">Title</label>
+                    <input class="form-control" type="text" name="name" id="name"/>
+                    <label for="quantity">Quantity</label>
+                    <input class="form-control" type="text" name="quantity" id="quantity" />
+                    <label for="author">Author</label>
+                    <input class="form-control" type="text" name="author" id="author" />
+                    <label for="year">Year</label>
+                    <input class="form-control" type="text" name="year" id="year" />
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
