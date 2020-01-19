@@ -55,8 +55,8 @@ class Graphic(db.Model):
 class Borrow(db.Model):
     __tablename__ = 'borrows'
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer)
-    user_id = db.Column(db.Integer)
+    # book_id = db.Column(db.Integer)
+    # user_id = db.Column(db.Integer)
     # ksiazka_id = (db.Integer,db.ForeignKey('employee.id'))
     # user_id = (db.Integer,db.ForeignKey('users.id'))
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
@@ -133,10 +133,10 @@ class Event(db.Model):
 
 
 # klasa laczaca user z event ( bo jest to relacja many-to-many) - nazwe lepsza trzeba wybrac
-# tags = db.Table('tags',
-#                 db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
-#                 db.Column('event_id', db.Integer, db.ForeignKey('Event.id'), primary_key=True)
-#                 )
+tags = db.Table('tags',
+                db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+                db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
+                )
 
 
 # class User(db.Model):

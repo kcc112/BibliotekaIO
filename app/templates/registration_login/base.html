@@ -1,13 +1,4 @@
 {% extends "main/application_base.html" %}
-<h1>
-    {% block title %}
-    {% if title %}
-    <title> {{ title }} - Library</title>
-    {% else %}
-    <title>Welcome in library!</title>
-    {% endif %}
-    {% endblock %}
-</h1>
 {% block head %}
 {{ super() }}
 {% endblock %}

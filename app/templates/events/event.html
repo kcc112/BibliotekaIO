@@ -4,7 +4,8 @@
 {% block navbar %}
 {{ super() }}
 {% endblock %}
-{% block body %}
-<h1>Szczegóły wydarzenia {{ event.id }}</h1>
-<p><a href={{ url_for('events_app.delete_event', id=event.id) }}>Usun to wydarzenie</a></p>
+{% block page_content %}
+<h1>Event: {{ event.id }} details</h1>
+<p><a href={{ url_for('events_app.delete_event', id=event.id) }}>Delete</a></p>
+    <p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
 {% endblock %}

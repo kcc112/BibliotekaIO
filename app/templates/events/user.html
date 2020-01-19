@@ -1,9 +1,9 @@
 {% extends "events/base.html" %}
 
-{% block title %}Strona startowa{% endblock %}
+{% block title %}{{ super() }}{% endblock %}
 {% block navbar %}
 {{ super() }}
 {% endblock %}
 {% block page_content %}
-<p>Przeglądaj swoje wydarzenia</p>
+<h1>All your events</h1>
 {% endblock %}

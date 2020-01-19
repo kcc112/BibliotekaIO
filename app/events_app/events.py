@@ -6,28 +6,22 @@ from . import events_app
 from app.registration_login_app.registration_login import required_roles
 
 
-@events_app.route('/event/home')
+@events_app.route('/event')
 def home():
     return render_template('/events/index.html')
 
 
-@events_app.route('/user')
+@events_app.route('/event/user')
 def user_site():
     return render_template('/events/user.html')
 
 
-@events_app.route('/admin')
-@required_roles('admin')
+@events_app.route('/event/admin')
 def admin_site():
     return render_template('/events/admin.html')
 
 
-# to tylko wstepne ale nie ogarniam bazy totalnie czy to jest git w
-# przypadku jak relacje bo to by była ta sama metoda dla kazdej tabeli xdd
-@events_app.route('/admin/add-event', methods=['GET', 'POST'])
-# def add_event(event):
-#     db.session.add(event)
-#     db.session.commit()
+@events_app.route('/event/admin/add-event', methods=['GET', 'POST'])
 def add_event():
     if request.method == 'POST':
         data = datetime.datetime(*[int(v) for v in request.form['date'].replace('T', '-').replace(':', '-').split('-')])
@@ -39,42 +33,42 @@ def add_event():
     return render_template('/events/add_event.html', auditoriums=Auditorium.query.all())
 
 
-@events_app.route('/admin/delete-event/<id>')
+@events_app.route('/event/admin/delete-event/<id>')
 def delete_event(id):
     db.session.delete(Event.query.get_or_404(id))
     db.session.commit()
     return redirect(url_for('events_app.get_all_event'))
 
 
-@events_app.route('/admin/get-event/<id>')
+@events_app.route('/event/admin/get-event/<id>')
 def get_event(id):
     return render_template('/events/event.html',
                            event=Event.query.get_or_404(id)
                            )
 
 
-@events_app.route('/admin/all-events')
+@events_app.route('/event/admin/all-events')
 def get_all_event():
     return render_template('/events/all-events.html',
                            events=Event.query.order_by(Event.id.desc()).all()
                            )
 
 
-@events_app.route('/admin/auditorium')
+@events_app.route('/event/admin/auditorium')
 def get_all_auditoriums():
     return render_template('/events/all-auditoriums.html',
                            auditoriums=Auditorium.query.order_by(Auditorium.number).all()
                            )
 
 
-@events_app.route('/admin/get-auditorium/<id>')
+@events_app.route('/event/admin/get-auditorium/<id>')
 def get_auditorium(id):
     return render_template('/events/auditorium.html',
                            auditorium=Auditorium.query.get_or_404(id)
                            )
 
 
-@events_app.route('/admin/add-auditorium', methods=['GET', 'POST'])
+@events_app.route('/event/admin/add-auditorium', methods=['GET', 'POST'])
 def add_auditorium():
     if request.method == 'POST':
         auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'], number=request.form['number'])
