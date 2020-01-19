@@ -10,8 +10,6 @@
         <h1>Update</h1>
         <form action="" method=post>
             <div class="form-group">
-                <label for="id">Id</label>
-                <input class="form-control" type=number name=id value="{{ announcement.id }}">
                 <label for="title">Announcement title</label>
                 <input class="form-control" type=text name=title value="{{ announcement.title }}">
                 <label for="description">Announcement content</label>
@@ -22,7 +20,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ url_for('announcements_app.worker') }}">Return</a>
+            <a href="{{ url_for('announcements_app.employee') }}">Return</a>
         </form>
     </div>
 </div>

@@ -10,7 +10,6 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th>#</th>
         <th>Title</th>
         <th>Content</th>
         <th>Date Added</th>
@@ -20,12 +19,10 @@
     <tbody>
       {%- for announcement in announcements %}
       <tr>
-        <td>{{ announcement.id }}</td>
         <td>{{ announcement.title }}</td>
         <td>{{ announcement.description }}</td>
         <td>{{ announcement.date.strftime('%Y-%m-%d') }}</td>
-        <td><a href="{{ url_for('announcements_app.get_announcement', id=announcement.id) }}">Szczegóły ogłoszenia
-            {{ announcement.id }}</a></td>
+        <td><a href="{{ url_for('announcements_app.get_announcement', id=announcement.id) }}">Szczegóły ogłoszenia </a></td>
       </tr>
       {%- endfor %}
     </tbody>
