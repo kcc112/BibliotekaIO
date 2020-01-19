@@ -11,7 +11,15 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Hello {{ current_user.email }} !</h1>
+        <h1>{{ announcement.title }}</h1>
+        <table class="table">
+            <tr>
+                <th>Date: {{ announcement.date }}</th>
+            </tr>
+            <tr>
+                <th>{{ announcement.description }}</th>
+            </tr>
+        </table>
     </div>
 </div>
 {% endblock %}
