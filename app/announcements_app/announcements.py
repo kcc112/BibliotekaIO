@@ -1,9 +1,11 @@
 from flask import render_template, session, redirect, url_for, request
 from flask_login import login_required
+from flask_uuid import FlaskUUID
 from .. import db
 from ..models import Announcement
 from . import announcements_app
 from datetime import date
+import uuid
 
 @announcements_app.route('/announcements')
 @login_required
@@ -27,7 +29,7 @@ def worker():
 @login_required
 def add_announcement():
     if request.method == 'POST':
-        announcement = Announcement(id=request.form['id'], title=request.form['title'], description=request.form['description'],
+        announcement = Announcement(id=str(uuid.uuid4()), title=request.form['title'], description=request.form['description'],
                                     date=date.today(), readerVisibility='readerVisibility' in request.form)
         db.session.add(announcement)
         db.session.commit()
@@ -66,7 +68,7 @@ def get_announcement(id):
 def edit_announcement(id):
     if request.method == 'POST':
         announcement = Announcement.query.get_or_404(id)
-        announcement.id = request.form['id']
+        #announcement.id = request.form['id']
         announcement.title = request.form['title']
         announcement.description = request.form['description']
         announcement.date = date.today()

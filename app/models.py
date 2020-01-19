@@ -33,7 +33,7 @@ class Book(db.Model):
 
 class Announcement(db.Model):
     __tablename__ = 'announcements'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(150), primary_key=True)
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
