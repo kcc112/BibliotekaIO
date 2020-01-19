@@ -4,8 +4,19 @@
 {% block navbar %}
 {{ super() }}
 {% endblock %}
-{% block page_content %}
-{{ super() }}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}
+        {{ super() }}
+    {% endblock %}
+</div>
 {% endblock %}
 
 

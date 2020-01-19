@@ -16,9 +16,9 @@
     <p>
         Day:
         <select name=day>
-            {%- for key, value in {"1" : "Monday", "2" : "Tuesday", "3" : "Wednesday",
-                                        "4" : "Thursday", "5" : "Friday", "6" : "Saturday",
-                                        "7" : "Sunday"}.items() %}
+            {%- for key, value in {1 : "Monday", 2 : "Tuesday", 3 : "Wednesday",
+                                        4 : "Thursday", 5 : "Friday", 6 : "Saturday",
+                                        7 : "Sunday"}.items() %}
             {%- if key == workSchedule.day %}
             <option value="{{key}}" selected>{{value}}</option>
             {%- else %}
@@ -49,5 +49,5 @@
         <input type=submit value="Edit">
     </p>
 
-    <a href="{{ url_for('owner_app.getWorkSchedules') }}">Return</a>
+    <a href="{{ url_for('owner_app.schedules') }}">Return</a>
     {% endblock %}
