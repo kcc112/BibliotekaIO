@@ -4,22 +4,27 @@ from .. import db
 from datetime import date
 from ..models import Book, Borrow, User
 from . import employee_app
+from app.registration_login_app.registration_login import required_roles
 
 
 @employee_app.route('/employee')
+@required_roles('employee')
+@login_required
 def employee():
     return render_template('./employee/base.html')
 
 
 @employee_app.route('/employee/books', methods=['POST', 'GET'])
-# @login_required
+@required_roles('employee', 'client')
+@login_required
 def getBooks():
      books = Book.query.order_by(Book.id).all()
      return render_template('./employee/books.html', books=books)
 
 
 @employee_app.route('/employee/books/add', methods=['POST', 'GET'])
-# @login_required
+@required_roles('employee')
+@login_required
 def addBook():
     if request.method == 'POST':
         name = request.form['name']
@@ -45,8 +50,10 @@ def addBook():
     else:
         return render_template('employee/add.html')
 
+
 @employee_app.route('/employee/books/delete/<int:id>')
-# @login_required
+@required_roles('employee')
+@login_required
 def deleteBook(id):
     book_to_delete = Book.query.get_or_404(id)
 
@@ -59,7 +66,8 @@ def deleteBook(id):
 
 
 @employee_app.route('/employee/books/update/<int:id>', methods=['POST', 'GET'])
-# @login_required
+@required_roles('employee')
+@login_required
 def updateBook(id):
     book_to_update = Book.query.get_or_404(id)
 
@@ -87,14 +95,16 @@ def updateBook(id):
 
 
 @employee_app.route('/employee/clients')
-# @login_required
+@required_roles('employee')
+@login_required
 def clients():
     clients = User.query.filter_by(user_type='client').all()
     return render_template('employee/clients.html', clients=clients)
 
 
 @employee_app.route('/employee/clients/<int:id>')
-# @login_required
+@required_roles('employee')
+@login_required
 def clientsBorrows(id):
     borrows = Borrow.query.filter_by(user_id=id).all()
     borrowed_books_dictionary = {}
@@ -107,7 +117,8 @@ def clientsBorrows(id):
 
 
 @employee_app.route('/employee/clients/delete/<int:id>')
-# @login_required
+@required_roles('employee')
+@login_required
 def clientsDelete(id):
     client_to_delete = User.query.get_or_404(id)
 
@@ -120,7 +131,8 @@ def clientsDelete(id):
 
 
 @employee_app.route('/employee/borrow/ending/<int:id>')
-# @login_required
+@required_roles('employee')
+@login_required
 def borrowEnding(id):
         borrow_to_end = Borrow.query.get_or_404(id)
         borrow_to_end.end_date = date.today()
@@ -132,6 +144,7 @@ def borrowEnding(id):
 
 
 @employee_app.route('/borrows')
+@required_roles('employee')
 @login_required
 def borrow():
     borrow = Borrow.query.order_by(Borrow.id).all()
@@ -139,6 +152,7 @@ def borrow():
 
 
 @employee_app.route('/borrows/delete/<int:id>')
+@required_roles('employee')
 @login_required
 def deleteBorrow(id):
     borrow_to_delete = Borrow.query.get_or_404(id)

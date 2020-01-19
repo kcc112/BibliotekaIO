@@ -71,11 +71,9 @@ class Borrow(db.Model):
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    #username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     user_type = db.Column(db.String(8), nullable=False)
-    #posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -85,6 +83,9 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def has_role(self, user_type):
+        return user_type == self.user_type
 
 
 class WorkSchedule(db.Model):

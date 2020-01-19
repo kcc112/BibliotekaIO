@@ -1,12 +1,16 @@
 {% extends "employee/base.html" %}
 
-{% block title %}Ksiazki{% endblock %}
+{% block title %}Books{% endblock %}
 {% block navbar %}
 {{ super() }}
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
-    <h1>Books <button class="btn btn-success" onclick="window.location.href = '/employee/books/add'">Add Book</button></h1>
+    {% if current_user.has_role('employee') %}
+        <h1>Books <button class="btn btn-success" onclick="window.location.href = '/employee/books/add'">Add Book</button></h1>
+        {% else %}
+        <h1>Books</h1>
+    {% endif %}
 
     <table class="table">
         <thead class="thead-dark">
@@ -16,8 +20,10 @@
                 <th>Quantity</th>
                 <th>Author</th>
                 <th>Year</th>
-                <th>Delete</th>
-                <th>Update</th>
+                {% if current_user.has_role('employee') %}
+                    <th>Delete</th>
+                    <th>Update</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -28,8 +34,10 @@
                 <td>{{ book.quantity }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.year }}</td>
-                <td><a href="/employee/books/delete/{{ book.id }}">Delete</a></td>
-                <td><a href="/employee/books/update/{{ book.id }}">Update</a></td>
+                {% if current_user.has_role('employee') %}
+                    <td><a href="/employee/books/delete/{{ book.id }}">Delete</a></td>
+                    <td><a href="/employee/books/update/{{ book.id }}">Update</a></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
