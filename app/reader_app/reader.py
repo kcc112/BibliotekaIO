@@ -7,14 +7,14 @@ from app.registration_login_app.registration_login import required_roles
 from .forms import ChangePasswordForm, ChangeEmailForm, BookTable, BorrowDateForm
 
 
-@reader_app.route("/reader")
+@reader_app.route('/reader')
 @login_required
 @required_roles('client')
 def reader():
     return render_template('./reader/home.html', current_user=current_user)
 
 
-@reader_app.route("/reader/books")
+@reader_app.route('/reader/books')
 @login_required
 @required_roles('client')
 def books():
@@ -23,14 +23,14 @@ def books():
     return render_template('./reader/books.html') + books_table.__html__()
 
 
-@reader_app.route("/reader/borrow", methods=['GET', 'POST'])
+@reader_app.route('/reader/borrow', methods=['GET', 'POST'])
 @login_required
 @required_roles('client')
 def borrow():
-    book = Book.query.filter_by(id=request.args["id"]).first()
+    book = Book.query.filter_by(id=request.args['id']).first()
     dateform = BorrowDateForm()
     if dateform.validate_on_submit():
-        book_id = request.args["id"]
+        book_id = request.args['id']
         borrow = Borrow(book_id=book_id, user_id=current_user.id,
                         start_date=dateform.start_date.data, end_date=dateform.end_date.data)
         db.session.add(borrow)
@@ -40,7 +40,7 @@ def borrow():
     return render_template('./reader/borrow.html', book=book, dateform=dateform)
 
 
-@reader_app.route("/reader/borrows")
+@reader_app.route('/reader/borrows')
 @login_required
 @required_roles('client')
 def borrows():
@@ -55,7 +55,7 @@ def borrows():
     return render_template('./reader/borrows.html', borrows=user_borrows, borrowed_books=borrowed_books_dictionary)
 
 
-@reader_app.route("/reader/events")
+@reader_app.route('/reader/events')
 @login_required
 @required_roles('client')
 def events():
@@ -63,7 +63,7 @@ def events():
     return render_template('./reader/events.html', events=events)
 
 
-@reader_app.route("/reader/event/<int:id>")
+@reader_app.route('/reader/event/<int:id>')
 @login_required
 @required_roles('client')
 def event(id):
@@ -71,14 +71,15 @@ def event(id):
     return render_template('./reader/event.html', event=event)
 
 
-@reader_app.route("/reader/announcements")
+@reader_app.route('/reader/announcements')
 @login_required
 @required_roles('client')
 def announcements():
     announcements = Announcement.query.order_by(Announcement.id).all()
     return render_template('./reader/announcements.html', announcements=announcements)
 
-@reader_app.route("/reader/announcement/<int:id>")
+
+@reader_app.route('/reader/announcement/<int:id>')
 @login_required
 @required_roles('client')
 def announcement(id):
@@ -86,7 +87,7 @@ def announcement(id):
     return render_template('./reader/announcement.html', announcement=announcement)
 
 
-@reader_app.route("/reader/profiles")
+@reader_app.route('/reader/profiles')
 @login_required
 @required_roles('client')
 def profiles():
@@ -94,7 +95,7 @@ def profiles():
     return render_template('./reader/profiles.html', users=users)
 
 
-@reader_app.route("/reader/profile/<int:id>")
+@reader_app.route('/reader/profile/<int:id>')
 @login_required
 @required_roles('client')
 def profile(id):
@@ -110,14 +111,14 @@ def profile(id):
                            borrowed_books=borrowed_books_dictionary, user=user)
 
 
-@reader_app.route("/reader/edit")
+@reader_app.route('/reader/edit')
 @login_required
 @required_roles('client')
 def edit():
     return render_template('./reader/edit.html')
 
 
-@reader_app.route("/reader/edit/password", methods=['GET', 'POST'])
+@reader_app.route('/reader/edit/password', methods=['GET', 'POST'])
 @login_required
 @required_roles('client')
 def change_password():
@@ -131,10 +132,10 @@ def change_password():
             return redirect(url_for('reader_app.change_password'))
         else:
             flash('Invalid password.')
-    return render_template("reader/change_password.html", form=form)
+    return render_template('reader/change_password.html', form=form)
 
 
-@reader_app.route("/reader/edit/email", methods=['GET', 'POST'])
+@reader_app.route('/reader/edit/email', methods=['GET', 'POST'])
 @login_required
 @required_roles('client')
 def change_email():
@@ -147,4 +148,4 @@ def change_email():
         return redirect(url_for('reader_app.change_email'))
     else:
         flash('Invalid Email.')
-    return render_template("/reader/change_email.html", form=form)
+    return render_template('/reader/change_email.html', form=form)
