@@ -133,10 +133,10 @@ class Event(db.Model):
 
 
 # klasa laczaca user z event ( bo jest to relacja many-to-many) - nazwe lepsza trzeba wybrac
-# tags = db.Table('tags',
-#                 db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
-#                 db.Column('event_id', db.Integer, db.ForeignKey('Event.id'), primary_key=True)
-#                 )
+tags = db.Table('tags',
+                db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+                db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
+                )
 
 
 # class User(db.Model):

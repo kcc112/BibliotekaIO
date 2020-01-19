@@ -1,26 +1,29 @@
 {% extends "events/base.html" %}
 
-{% block title %}Strona startowa{% endblock %}
+{% block title %}{{ super() }}{% endblock %}
 {% block navbar %}
 {{ super() }}
 {% endblock %}
 {% block page_content %}
-<h1>Wszystkie wydarzenia</h1>
+<h1>All events</h1>
 <table class=events>
   <tr>
-    <th>#
-    <th>Nazwa
-    <th>Opis
-    <th>Data
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Auditorium</th>
+  </tr>
       {%- for e in events %}
   <tr class=title>
-    <td>{{ e.id }}
-    <td>{{ e.name }}
-    <td>{{ e.description }}
-    <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}
-    <td><a href={{ url_for('events_app.get_event', id=e.id) }}>Szczegóły wydarzenia {{ e.id }}</a>
-    <td><a href={{ url_for('events_app.get_auditorium', id=e.auditorium) }}>Sala {{ e.auditorium }}</a>
+          <td>{{ e.id }}</td>
+          <td>{{ e.name }}</td>
+          <td>{{ e.description }}</td>
+          <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td><a href={{ url_for('events_app.get_event', id=e.id) }}>Event {{ e.id }} details</a></td>
+          <!--<td><a href={{ url_for('events_app.get_auditorium', id=e.auditorium) }}>Auditorium {{ e.auditorium }}</a></td>-->
+  </tr>
       {%- endfor %}
 </table>
-<p><a href="{{ url_for('events_app.get_all_auditoriums') }}">Wszystkie sale</a></p>
+<p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
 {% endblock %}

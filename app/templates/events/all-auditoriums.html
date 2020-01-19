@@ -1,21 +1,24 @@
 {% extends "events/base.html" %}
 
-{% block title %}Wszystkie sale{% endblock %}
+{% block title %}{{ super() }}{% endblock %}
 {% block navbar %}
 {{ super() }}
 {% endblock %}
 {% block page_content %}
-<h1>Wszystkie sale</h1>
+<h1>All auditoriums</h1>
 <table class=todos>
   <tr>
-    <th>#
-    <th>Liczba osób mieszczących się w sali
-    <th>Numer sali (?)
-      {%- for a in auditoriums %}
-  <tr class=title>
-    <td>{{ a.id }}
-    <td>{{ a.maxPlaces }}
-    <td>{{ a.number }}
-      {%- endfor %}
+      <th>#</th>
+      <th>Number of people in auditorium</th>
+      <th>Auditorium number</th>
+  </tr>
+    {%- for a in auditoriums %}
+        <tr class=title>
+          <td>{{ a.id }}</td>
+          <td>{{ a.maxPlaces }}</td>
+          <td>{{ a.number }}</td>
+        </tr>
+    {%- endfor %}
 </table>
+    <p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
 {% endblock %}
