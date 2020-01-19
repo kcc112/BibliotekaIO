@@ -18,8 +18,9 @@ def reader():
 @login_required
 @required_roles('client')
 def books():
-    books = Book.query.order_by(Book.id).all()
-    return render_template('./employee/books.html', books=books)
+    books_query = db.session.query(Book)
+    books_table = BookTable(books_query)
+    return render_template('./reader/books.html') + books_table.__html__()
 
 
 @reader_app.route('/reader/borrow', methods=['GET', 'POST'])
