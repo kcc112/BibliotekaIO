@@ -54,38 +54,6 @@ def borrows():
     return render_template('./reader/borrows.html', borrows=user_borrows, borrowed_books=borrowed_books_dictionary)
 
 
-@reader_app.route('/reader/events')
-@login_required
-@required_roles('client')
-def events():
-    events = Event.query.order_by(Event.id).all()
-    return render_template('./reader/events.html', events=events)
-
-
-@reader_app.route('/reader/event/<int:id>')
-@login_required
-@required_roles('client')
-def event(id):
-    event = Event.query.filter_by(id=id).first()
-    return render_template('./reader/event.html', event=event)
-
-
-@reader_app.route('/reader/announcements')
-@login_required
-@required_roles('client')
-def announcements():
-    announcements = Announcement.query.order_by(Announcement.id).all()
-    return render_template('./reader/announcements.html', announcements=announcements)
-
-
-@reader_app.route('/reader/announcement/<int:id>')
-@login_required
-@required_roles('client')
-def announcement(id):
-    announcement = Announcement.query.filter_by(id=id).first()
-    return render_template('./reader/announcement.html', announcement=announcement)
-
-
 @reader_app.route('/reader/profiles')
 @login_required
 @required_roles('client')

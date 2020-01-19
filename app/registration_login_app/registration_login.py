@@ -33,8 +33,6 @@ def index():
 
 @registration_login_app.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-            return redirect(url_for('registration_login_app.index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -67,7 +65,7 @@ def register():
         return redirect(url_for('registration_login_app.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, user_type='client')
+        user = User(email=form.email.data, user_type='')
         user.set_password(form.password1.data)
         db.session.add(user)
         db.session.commit()

@@ -22,10 +22,10 @@
                 <a class="nav-link" href="{{ url_for('reader_app.borrows') }}">Borrows</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('reader_app.events') }}">Events</a>
+                <a class="nav-link" href="{{ url_for('events_app.user_site') }}">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('reader_app.announcements') }}">Announcements</a>
+                <a class="nav-link" href="{{ url_for('announcements_app.get_all_reader_announcements') }}">Announcements</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('reader_app.profiles') }}">Profiles</a>
@@ -44,12 +44,10 @@
 {% block content %}
 <div class="container">
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button"></button>
+    <div class="alert alert-warning" role="alert">
         {{ message }}
     </div>
     {% endfor %}
-
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
