@@ -40,7 +40,8 @@ def add_event():
                       auditorium=request.form['auditorium'])
         conds = [Event.date >= event.date, Event.date <= event.endDate]
         conds2 = [Event.endDate >= event.date, Event.endDate <= event.endDate]
-        res = Event.query.filter(Event.auditorium == event.auditorium).filter(or_(and_(*conds),and_(*conds2))).all()
+        conds3 = [Event.date <= event.date, Event.endDate >= event.endDate]
+        res = Event.query.filter(Event.auditorium == event.auditorium).filter(or_(and_(*conds),and_(*conds2),and_(*conds3))).all()
         #print(res)
         if len(res) == 0:
             db.session.add(event)
