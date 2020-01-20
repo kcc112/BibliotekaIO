@@ -130,10 +130,10 @@ def assign_to_user(id):
     user = AssignForm(request.form)
     user.choose.choices = [(u.id, u.email) for u in User.query.all()]
     # ile uzytkownikow idzie na event
-    user_check = UserEvent.query.filter(UserEvent.event_id == id).all()
-    audit_size = Auditorium.query.filter(Auditorium == event.auditorium)
+    #user_check = UserEvent.query.filter(UserEvent.event_id == id).all()
+    #audit_size = Auditorium.query.filter(Auditorium == event.auditorium)
     if request.method == 'POST':
-        if audit_size > len(user_check):
+        #if audit_size > len(user_check):
             for f in user.choose.data:
                 user_event = UserEvent(user_id=f, event_id=id)
                 try:
@@ -141,8 +141,9 @@ def assign_to_user(id):
                     db.session.commit()
                 except exc.IntegrityError as e:
                     db.session().rollback()
-        return redirect(url_for('events_app.get_all_event'))
-    return render_template('/events/assign-to-user.html', event=event, users=user)
+            return redirect(url_for('events_app.get_all_event'))
+    userEvent = db.session.query(User).join(UserEvent).filter(UserEvent.event_id == event.id).all()
+    return render_template('/events/assign-to-user.html', event=event, users=user, userEvent=userEvent)
 
 
 def check_dates(event):

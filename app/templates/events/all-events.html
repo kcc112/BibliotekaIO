@@ -32,7 +32,6 @@
           <td><a href="{{ url_for('events_app.assign_to_user', id=e.id) }}">Add user to event</a></td>
           <td><a href="{{ url_for('events_app.modify_event', id=e.id) }}">Modify</a></td>
           <td><a href={{ url_for('events_app.delete_event', id=e.id) }}>Delete</a></td>
-
   </tr>
       {%- endfor %}
 </table>
