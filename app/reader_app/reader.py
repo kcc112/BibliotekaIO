@@ -4,7 +4,9 @@ from ..models import Announcement, Book, Borrow, Event, User
 from . import reader_app
 from flask_login import login_required, current_user
 from app.registration_login_app.registration_login import required_roles
-from .forms import ChangePasswordForm, ChangeEmailForm, BookTable, BorrowDateForm
+from .forms import ChangePasswordForm, ChangeEmailForm, BookTable, BorrowDateForm, BookSearchForm
+from datetime import date
+import sys
 
 
 @reader_app.route('/reader')
@@ -14,13 +16,42 @@ def reader():
     return render_template('./reader/home.html', current_user=current_user)
 
 
-@reader_app.route('/reader/books')
+@reader_app.route('/reader/books', methods=["GET"])
 @login_required
 @required_roles('client')
 def books():
-    books_query = db.session.query(Book)
+    search = BookSearchForm()
+    book_title = ""
+    book_author = ""
+    books_query = None
+    if search.submit():
+        try:
+            book_title = request.args["title_search"]
+        except:
+            pass
+        try:
+            book_author = request.args["author_search"]
+        except:
+            pass
+        if book_title != "":
+            if book_author != "":
+                books_query = Book.query.filter(Book.name.contains(book_title), Book.author.contains(book_author))
+                books_table = BookTable(books_query)
+                return render_template('./reader/books.html', form=search) + books_table.__html__()
+            books_query = Book.query.filter(Book.name.contains(book_title))
+            books_table = BookTable(books_query)
+            return render_template('./reader/books.html', form=search) + books_table.__html__()
+        else:
+            if book_author != "":
+                books_query = Book.query.filter(Book.author.contains(book_author))
+                books_table = BookTable(books_query)
+                return render_template('./reader/books.html', form=search) + books_table.__html__()
+        
+    if books_query is None:
+        books_query = db.session.query(Book)
+   # books_query = Book.query.filter_by(name=book_title, author=book_author)
     books_table = BookTable(books_query)
-    return render_template('./reader/books.html') + books_table.__html__()
+    return render_template('./reader/books.html', form=search) + books_table.__html__()
 
 
 @reader_app.route('/reader/borrow', methods=['GET', 'POST'])
