@@ -2,15 +2,16 @@ from flask import Flask, render_template, request, redirect, url_for
 import datetime
 
 from flask_wtf import FlaskForm
-from wtforms import SubmitField
+from wtforms import SubmitField, SelectMultipleField, SelectField
 from wtforms.fields.html5 import DateField, DateTimeLocalField, DateTimeField
 from wtforms.validators import DataRequired
+from sqlalchemy import exc
 
 from .. import db
-from ..models import Event, User, Auditorium
+from ..models import Event, User, Auditorium, UserEvent
 from . import events_app
 from app.registration_login_app.registration_login import required_roles
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 
 @events_app.route('/event/user')
@@ -18,7 +19,10 @@ from flask_login import login_required
 @login_required
 def user_site():
     #dodać wybranie przypisanych eventów
-    return render_template('/events/user.html', events=Event.query.order_by(Event.id.desc()).all())
+    # events = Event.query().filter_by(user_id=current_user.id).all()
+    result = db.session.query(Event).join(UserEvent).filter(UserEvent.user_id == current_user.id).all()
+    #result = UserEvent.query.all()
+    return render_template('/events/user.html' , events=result)
 
 
 @events_app.route('/event/admin')
@@ -37,6 +41,7 @@ def add_event():
     # data = datetime.datetime(*[int(v) for v in request.form['date'].replace('T', '-').replace(':', '-').split('-')])
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
                       date=dateform.start_date.data, auditorium=request.form['auditorium'])
+        print(request.form['auditorium'])
         db.session.add(event)
         db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
@@ -103,17 +108,20 @@ def add_auditorium():
 @events_app.route('/event/admin/assign-to-user/<id>', methods=['GET', 'POST'])
 #@required_roles('admin')
 @login_required
-def assign_to_user():
+def assign_to_user(id):
+    event = Event.query.get_or_404(id)
+    user = AssignForm(request.form)
+    user.choose.choices = [(u.id, u.email) for u in User.query.all()]
     if request.method == 'POST':
-        event = Event.query.get_or_404(id)
-        user = User.query.get_or_404(id=request.form['user_id'])
-        #many2many =
-        #teraz tutaj zrobic przypisywanie uzytkownika do wydarzenia z html form gdzie wybiera sie
-        #uzytkownika z selecta jak te audytoria
-        #event.
-        #tu zapis
-        return redirect(url_for('events_app.get_all_auditoriums'))
-    return render_template('/events/assign-to-user.html', events=Event.query().all(), users=User.query().all())
+        for f in user.choose.data:
+           user_event = UserEvent(user_id=f, event_id=id)
+           try:
+               db.session.add(user_event)
+               db.session.commit()
+           except exc.IntegrityError as e:
+               db.session().rollback()
+        return redirect(url_for('events_app.get_all_event'))
+    return render_template('/events/assign-to-user.html', event=event, users=user)
 
 
 
@@ -122,3 +130,6 @@ class EventDateForm(FlaskForm):
     start_date = DateTimeField(
         'DatePicker', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime.now())
     submit = SubmitField('Submit', validators=[DataRequired()])
+
+class AssignForm(FlaskForm):
+    choose = SelectMultipleField(u'Users', coerce=int)

@@ -111,7 +111,7 @@ class Event(db.Model):
         return '<Event %r>' % self.name
 
 
-tags = db.Table('tags',
-                db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-                db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
-                )
+class UserEvent(db.Model):
+    __tablename__ = 'user_event'
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
