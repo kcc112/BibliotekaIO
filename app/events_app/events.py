@@ -37,8 +37,11 @@ def add_event():
     if request.method == 'POST':
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
                       date=dateform.start_date.data, auditorium=request.form['auditorium'])
-        db.session.add(event)
-        db.session.commit()
+        auds = Auditorium.query.all()
+        if auds.contains() is not None:
+        #if(Event.query.get)
+            db.session.add(event)
+            db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
     return render_template('/events/add_event.html', auditoriums=Auditorium.query.all(), dateform=dateform)
 
