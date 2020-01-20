@@ -22,17 +22,19 @@
         <th>Start Date</th>
         <th>End Date</th>
         <th>Auditorium</th>
+        <th>Seats</th>
       </tr>
     </thead>
     <tbody>
-      {%- for event in events %}
+      {%- for i in range(size) %}
       <tr>
-          <td>{{ event.id }}</td>
-          <td>{{ event.name }}</td>
-          <td>{{ event.description }}</td>
-          <td>{{ event.date }}</td>
-          <td>{{ event.endDate }}</td>
-          <td>{{ event.auditorium }}</td>
+          <td>{{ events[i].id }}</td>
+          <td>{{ events[i].name }}</td>
+          <td>{{ events[i].description }}</td>
+          <td>{{ events[i].date }}</td>
+          <td>{{ events[i].endDate }}</td>
+          <td>{{ events[i].auditorium }}</td>
+          <td>{{ users[i] }}/{{ audits[i].maxPlaces }}</td>
       </tr>
       {%- endfor %}
     </tbody>

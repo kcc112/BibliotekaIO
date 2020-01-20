@@ -19,10 +19,12 @@ from flask_login import login_required, current_user
 @login_required
 def user_site():
     result = db.session.query(Event).join(UserEvent).filter(UserEvent.user_id == current_user.id).all()
-    #audits = db.session.query(Auditorium).join(Event).filter(Auditorium.id == Event.auditorium).join(UserEvent)\
-        #.filter(UserEvent.user_id == current_user.id).all()
-
-    return render_template('/events/user.html', events=result)#, audits=audits)
+    audits = db.session.query(Auditorium).join(Event).filter(Auditorium.id == Event.auditorium).join(UserEvent)\
+        .filter(UserEvent.user_id == current_user.id).all()
+    sums = []
+    for i in result:
+        sums.append(len(db.session.query(User).join(UserEvent).filter(UserEvent.event_id == i.id).all()))
+    return render_template('/events/user.html', events=result, audits=audits, users=sums, size=len(result))
 
 
 @events_app.route('/event/admin')
