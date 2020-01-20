@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectMultipleField
 from wtforms.fields.html5 import DateTimeField
 from wtforms.validators import DataRequired
-from sqlalchemy import exc
+from sqlalchemy import exc, and_, or_
 
 from .. import db
 from ..models import Event, User, Auditorium, UserEvent
@@ -38,9 +38,11 @@ def add_event():
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
                       date=dateform.start_date.data, endDate=dateform.end_date.data,
                       auditorium=request.form['auditorium'])
-        res = Event.query.filter(Event.auditorium == event.auditorium).all()
+        conds = [Event.date >= event.date, Event.date <= event.endDate]
+        conds2 = [Event.endDate >= event.date, Event.endDate <= event.endDate]
+        res = Event.query.filter(Event.auditorium == event.auditorium).filter(or_(and_(*conds),and_(*conds2))).all()
+        #print(res)
         if len(res) == 0:
-        #if(Event.query.get)
             db.session.add(event)
             db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
