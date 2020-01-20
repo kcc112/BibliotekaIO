@@ -20,7 +20,10 @@
         <th>Start time
         <th>End time
         <th>Worker
+        {% if current_user.has_role('admin') %}
         <th>Manage
+        {% else %}   
+        {% endif %}
     </tr>
 
     {%- for schedule in workSchedules %}
@@ -32,8 +35,11 @@
         <td>{{ schedule.startTime }}
         <td>{{ schedule.endTime }}
         <td>{{ schedule.worker_id }}
+        {% if current_user.has_role('admin') %}
         <td><a href="{{ url_for('owner_app.edit_schedule', id=schedule.id) }}">Edit</a> <a
-                href="{{ url_for('owner_app.delete_schedule', id=schedule.id) }}">Delete</a>
+            href="{{ url_for('owner_app.delete_schedule', id=schedule.id) }}">Delete</a>
+        {% else %}   
+        {% endif %}
 
     </tr>
     {%- endfor %}
