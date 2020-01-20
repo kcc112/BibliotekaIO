@@ -49,7 +49,6 @@ def add_event():
 def modify_event(id):
     event = Event.query.get_or_404(id)
     dateform = EventDateForm()
-    dateform.start_date.data = event.date
     if request.method == 'POST':
         event.name = request.form['name']
         event.description = request.form['desc']
@@ -58,6 +57,7 @@ def modify_event(id):
         db.session.commit()
         print(request.form)
         return redirect(url_for('events_app.get_all_event'))
+    dateform.start_date.data = event.date
     return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform, eventForm=event)
 
 
