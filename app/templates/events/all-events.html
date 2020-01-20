@@ -17,7 +17,8 @@
       <th>#</th>
       <th>Name</th>
       <th>Description</th>
-      <th>Date</th>
+      <th>Start date</th>
+      <th>End date</th>
       <th>Auditorium</th>
   </tr>
       {%- for e in events %}
@@ -26,8 +27,12 @@
           <td>{{ e.name }}</td>
           <td>{{ e.description }}</td>
           <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
-          <td><a href={{ url_for('events_app.get_event', id=e.id) }}>Event {{ e.id }} details</a></td>
-          <!--<td><a href={{ url_for('events_app.get_auditorium', id=e.auditorium) }}>Auditorium {{ e.auditorium }}</a></td>-->
+          <td>{{ e.endDate.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ e.auditorium }}</td>
+          <td><a href="{{ url_for('events_app.assign_to_user', id=e.id) }}">Add user to event</a></td>
+          <td><a href="{{ url_for('events_app.modify_event', id=e.id) }}">Modify</a></td>
+          <td><a href={{ url_for('events_app.delete_event', id=e.id) }}>Delete</a></td>
+
   </tr>
       {%- endfor %}
 </table>

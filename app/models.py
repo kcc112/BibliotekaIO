@@ -105,13 +105,14 @@ class Event(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.String)
     date = db.Column(db.DateTime)
+    endDate = db.Column(db.DateTime)
     auditorium = db.Column(db.Integer, db.ForeignKey('auditorium.id'))
 
     def __repr__(self):
         return '<Event %r>' % self.name
 
 
-tags = db.Table('tags',
-                db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-                db.Column('event_id', db.Integer, db.ForeignKey('event.id'), primary_key=True)
-                )
+class UserEvent(db.Model):
+    __tablename__ = 'user_event'
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), primary_key=True)
