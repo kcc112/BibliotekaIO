@@ -48,7 +48,7 @@ def login():
             if user.user_type == 'employee':
                 next_page = url_for('employee_app.employee')
             if user.user_type == 'admin':
-                next_page = url_for('owner_app.ownerView')
+                next_page = url_for('owner_app.owner')
         return redirect(next_page)
     return render_template('/registration_login/login.html', title='Sign In', form=form)
 
@@ -65,7 +65,7 @@ def register():
         return redirect(url_for('registration_login_app.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, user_type='client')
+        user = User(email=form.email.data, user_type='admin')
         user.set_password(form.password1.data)
         db.session.add(user)
         db.session.commit()

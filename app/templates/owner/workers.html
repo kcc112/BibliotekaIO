@@ -28,12 +28,18 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.user_type }}</td>
-                <td><a href="{{ url_for('owner_app.deleteWorker', id=user.id) }}">Delete</a>
+                <td>
+                    <a href="{{ url_for('owner_app.delete_worker', id=user.id) }}">
+                        {%- if user.user_type != "admin" %}
+                            Delete
+                        {%- endif %}
+                    </a>
+                </td>
             </tr>
             {%- endfor %}
         </tbody>
     </table>
-    <p><a href="{{ url_for('owner_app.addWorker') }}">Add new worker</a></p>
-    <a href="{{ url_for('owner_app.ownerView') }}">Return</a>
+    <p><a href="{{ url_for('owner_app.add_worker') }}">Add new worker</a></p>
+    <a href="{{ url_for('owner_app.owner') }}">Return</a>
 </div>
 {% endblock %}
