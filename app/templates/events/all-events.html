@@ -1,39 +1,43 @@
 {% if current_user.has_role('employee') %}
-{% extends "employee/base.html" %}
-{% elif current_user.has_role('client')%}
-{% extends "reader/reader_base.html" %}
+    {% extends "employee/base.html" %}
+{% elif current_user.has_role('client') %}
+    {% extends "reader/reader_base.html" %}
 {% else %}
-{% extends "owner/base.html" %}
+    {% extends "owner/base.html" %}
 {% endif %}
 
 {% block title %}{{ super() }}{% endblock %}
 {% block navbar %}
-{{ super() }}
+    {{ super() }}
 {% endblock %}
 {% block page_content %}
-<h1>All events</h1>
-<table class=events>
-  <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Auditorium</th>
-  </tr>
-      {%- for e in events %}
-  <tr class=title>
-          <td>{{ e.id }}</td>
-          <td>{{ e.name }}</td>
-          <td>{{ e.description }}</td>
-          <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
-          <td>{{ e.endDate.strftime('%Y-%m-%d %H:%M') }}</td>
-          <td>{{ e.auditorium }}</td>
-          <td><a href="{{ url_for('events_app.assign_to_user', id=e.id) }}">Add user to event</a></td>
-          <td><a href="{{ url_for('events_app.modify_event', id=e.id) }}">Modify</a></td>
-          <td><a href={{ url_for('events_app.delete_event', id=e.id) }}>Delete</a></td>
-  </tr>
-      {%- endfor %}
-</table>
-<p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
+    <h1>All events</h1>
+    <table class=events>
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Auditorium</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%- for e in events %}
+            <tr class=title>
+                <td>{{ e.id }}</td>
+                <td>{{ e.name }}</td>
+                <td>{{ e.description }}</td>
+                <td>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ e.endDate.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ e.auditorium }}</td>
+                <td><a href="{{ url_for('events_app.assign_to_user', id=e.id) }}">Add user to event</a></td>
+                <td><a href="{{ url_for('events_app.modify_event', id=e.id) }}">Modify</a></td>
+                <td><a href={{ url_for('events_app.delete_event', id=e.id) }}>Delete</a></td>
+            </tr>
+        {%- endfor %}
+        </tbody>
+    </table>
+    <p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
 {% endblock %}
