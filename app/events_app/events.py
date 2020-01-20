@@ -23,14 +23,14 @@ def user_site():
 
 
 @events_app.route('/event/admin')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def admin_site():
     return render_template('/events/admin.html')
 
 
 @events_app.route('/event/admin/add-event', methods=['GET', 'POST'])
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def add_event():
     dateform = EventDateForm()
@@ -39,7 +39,7 @@ def add_event():
                       date=dateform.start_date.data, auditorium=request.form['auditorium'])
         res = Event.query.filter(Event.auditorium == event.auditorium).all()
         if len(res) == 0:
-        #if(Event.query.get)
+            # if(Event.query.get)
             db.session.add(event)
             db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
@@ -47,7 +47,7 @@ def add_event():
 
 
 @events_app.route('/event/admin/modify-event/<id>', methods=['GET', 'POST'])
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def modify_event(id):
     event = Event.query.get_or_404(id)
@@ -61,11 +61,12 @@ def modify_event(id):
         print(request.form)
         return redirect(url_for('events_app.get_all_event'))
     dateform.start_date.data = event.date
-    return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform, eventForm=event)
+    return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform,
+                           eventForm=event)
 
 
 @events_app.route('/event/admin/delete-event/<id>')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def delete_event(id):
     db.session.delete(Event.query.get_or_404(id))
@@ -74,7 +75,7 @@ def delete_event(id):
 
 
 @events_app.route('/event/admin/get-event/<id>')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def get_event(id):
     return render_template('/events/event.html',
@@ -83,7 +84,7 @@ def get_event(id):
 
 
 @events_app.route('/event/admin/all-events')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def get_all_event():
     return render_template('/events/all-events.html',
@@ -92,7 +93,7 @@ def get_all_event():
 
 
 @events_app.route('/event/admin/auditorium')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def get_all_auditoriums():
     return render_template('/events/all-auditoriums.html',
@@ -101,7 +102,7 @@ def get_all_auditoriums():
 
 
 @events_app.route('/event/admin/get-auditorium/<id>')
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def get_auditorium(id):
     return render_template('/events/auditorium.html',
@@ -110,11 +111,12 @@ def get_auditorium(id):
 
 
 @events_app.route('/event/admin/add-auditorium', methods=['GET', 'POST'])
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def add_auditorium():
     if request.method == 'POST':
-        auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'], number=request.form['number'])
+        auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'],
+                                number=request.form['number'])
         db.session.add(auditorium)
         db.session.commit()
         return redirect(url_for('events_app.get_all_auditoriums'))
@@ -122,20 +124,24 @@ def add_auditorium():
 
 
 @events_app.route('/event/admin/assign-to-user/<id>', methods=['GET', 'POST'])
-#@required_roles('admin')
+# @required_roles('admin')
 @login_required
 def assign_to_user(id):
     event = Event.query.get_or_404(id)
     user = AssignForm(request.form)
     user.choose.choices = [(u.id, u.email) for u in User.query.all()]
+    # ile uzytkownikow idzie na event
+    user_check = UserEvent.query.filter(UserEvent.event_id == id).all()
+    audit_size = Auditorium.query.filter(Auditorium == event.auditorium)
     if request.method == 'POST':
-        for f in user.choose.data:
-            user_event = UserEvent(user_id=f, event_id=id)
-            try:
-                db.session.add(user_event)
-                db.session.commit()
-            except exc.IntegrityError as e:
-                db.session().rollback()
+        if audit_size > len(user_check):
+            for f in user.choose.data:
+                user_event = UserEvent(user_id=f, event_id=id)
+                try:
+                    db.session.add(user_event)
+                    db.session.commit()
+                except exc.IntegrityError as e:
+                    db.session().rollback()
         return redirect(url_for('events_app.get_all_event'))
     return render_template('/events/assign-to-user.html', event=event, users=user)
 
