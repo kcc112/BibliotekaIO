@@ -11,8 +11,9 @@
     {{ super() }}
 {% endblock %}
 {% block page_content %}
+<div class="page-header events">
     <h1>All events</h1>
-    <table class=events>
+    <table class=table>
         <thead class="thead-dark">
         <tr>
             <th>#</th>
@@ -21,6 +22,7 @@
             <th>Start date</th>
             <th>End date</th>
             <th>Auditorium</th>
+            <th colspan="3" style="text-align:center">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -40,4 +42,5 @@
         </tbody>
     </table>
     <p><a href="{{ url_for('events_app.admin_site') }}">Main view</a></p>
+</div>
 {% endblock %}
