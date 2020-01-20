@@ -25,10 +25,6 @@
         Description:
         <input type=text name=desc value="{{ request.form.desc }}"/>
     </p>
-    <!--<p>
-        Date:
-        <input type=datetime-local name=date value="{{ request.form.date }}"/>
-    </p>-->
     <div>
                 Date:
                 {{ dateform.start_date() }}
@@ -37,7 +33,7 @@
         Choose auditorium
         <select name="auditorium">
             {% for aud in auditoriums %}
-            <option value="{{ request.form.auditorium }}">{{ aud.id }}</option>
+            <option value="{{ aud.id }}">{{ aud.id }}</option>
             {% endfor %}
         </select>
     </p>
