@@ -65,7 +65,7 @@ def register():
         return redirect(url_for('registration_login_app.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, user_type='admin')
+        user = User(email=form.email.data, user_type='client')
         user.set_password(form.password1.data)
         db.session.add(user)
         db.session.commit()

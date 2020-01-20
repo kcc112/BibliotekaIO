@@ -72,7 +72,7 @@ def edit_schedule(id):
 def add_worker():
     form = forms.RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, user_type='client')
+        user = User(email=form.email.data, user_type='employee')
         user.set_password(form.password1.data)
         db.session.add(user)
         db.session.commit()

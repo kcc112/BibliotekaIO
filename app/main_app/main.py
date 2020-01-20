@@ -6,3 +6,4 @@ from . import main_app
 @main_app.route('/')
 def route():
     return redirect(url_for('registration_login_app.login'))
+
