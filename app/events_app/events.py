@@ -36,7 +36,8 @@ def add_event():
     dateform = EventDateForm()
     if request.method == 'POST':
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
-                      date=dateform.start_date.data, auditorium=request.form['auditorium'])
+                      date=dateform.start_date.data, endDate=dateform.end_date.data,
+                      auditorium=request.form['auditorium'])
         res = Event.query.filter(Event.auditorium == event.auditorium).all()
         if len(res) == 0:
         #if(Event.query.get)
@@ -56,11 +57,13 @@ def modify_event(id):
         event.name = request.form['name']
         event.description = request.form['desc']
         event.date = dateform.start_date.data
+        event.endDate = dateform.end_date.data
         event.auditorium = request.form['auditorium']
         db.session.commit()
         print(request.form)
         return redirect(url_for('events_app.get_all_event'))
     dateform.start_date.data = event.date
+    dateform.end_date.data = event.endDate
     return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform, eventForm=event)
 
 
@@ -143,6 +146,8 @@ def assign_to_user(id):
 class EventDateForm(FlaskForm):
     start_date = DateTimeField(
         'DatePicker', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime.now())
+    end_date = DateTimeField('DatePicker', format='%Y-%m-%d %H:%M:%S',
+         default=datetime.datetime.now() + datetime.timedelta(hours=7))
     submit = SubmitField('Submit', validators=[DataRequired()])
 
 

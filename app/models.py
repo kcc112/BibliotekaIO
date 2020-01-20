@@ -105,6 +105,7 @@ class Event(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.String)
     date = db.Column(db.DateTime)
+    endDate = db.Column(db.DateTime)
     auditorium = db.Column(db.Integer, db.ForeignKey('auditorium.id'))
 
     def __repr__(self):
