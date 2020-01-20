@@ -100,11 +100,17 @@ def add_auditorium():
     return render_template('/events/add_auditorium.html')
 
 
-@events_app.route('/event/admin/assign-to-user', methods=['GET', 'POST'])
+@events_app.route('/event/admin/assign-to-user/<id>', methods=['GET', 'POST'])
 #@required_roles('admin')
 @login_required
 def assign_to_user():
     if request.method == 'POST':
+        event = Event.query.get_or_404(id)
+        user = User.query.get_or_404(id=request.form['user_id'])
+        #many2many =
+        #teraz tutaj zrobic przypisywanie uzytkownika do wydarzenia z html form gdzie wybiera sie
+        #uzytkownika z selecta jak te audytoria
+        #event.
         #tu zapis
         return redirect(url_for('events_app.get_all_auditoriums'))
     return render_template('/events/assign-to-user.html', events=Event.query().all(), users=User.query().all())

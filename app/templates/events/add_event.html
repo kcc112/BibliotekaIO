@@ -34,7 +34,7 @@
                 {{ dateform.start_date() }}
     </div>
     <p>
-        Chose auditorium
+        Choose auditorium
         <select name="auditorium">
             {% for aud in auditoriums %}
             <option value="{{ request.form.auditorium }}">{{ aud.id }}</option>
