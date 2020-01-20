@@ -37,8 +37,8 @@ def add_event():
     if request.method == 'POST':
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
                       date=dateform.start_date.data, auditorium=request.form['auditorium'])
-        auds = Auditorium.query.all()
-        if auds.contains() is not None:
+        res = Event.query.filter(Event.auditorium == event.auditorium).all()
+        if len(res) == 0:
         #if(Event.query.get)
             db.session.add(event)
             db.session.commit()
