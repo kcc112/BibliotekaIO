@@ -23,23 +23,24 @@ def user_site():
 
 
 @events_app.route('/event/admin')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def admin_site():
     return render_template('/events/admin.html')
 
 
 @events_app.route('/event/admin/add-event', methods=['GET', 'POST'])
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def add_event():
     dateform = EventDateForm()
     if request.method == 'POST':
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
-                      date=dateform.start_date.data, auditorium=request.form['auditorium'])
+                      date=dateform.start_date.data, endDate=dateform.end_date.data,
+                      auditorium=request.form['auditorium'])
         res = Event.query.filter(Event.auditorium == event.auditorium).all()
         if len(res) == 0:
-            # if(Event.query.get)
+        #if(Event.query.get)
             db.session.add(event)
             db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
@@ -47,7 +48,7 @@ def add_event():
 
 
 @events_app.route('/event/admin/modify-event/<id>', methods=['GET', 'POST'])
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def modify_event(id):
     event = Event.query.get_or_404(id)
@@ -56,17 +57,18 @@ def modify_event(id):
         event.name = request.form['name']
         event.description = request.form['desc']
         event.date = dateform.start_date.data
+        event.endDate = dateform.end_date.data
         event.auditorium = request.form['auditorium']
         db.session.commit()
         print(request.form)
         return redirect(url_for('events_app.get_all_event'))
     dateform.start_date.data = event.date
-    return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform,
-                           eventForm=event)
+    dateform.end_date.data = event.endDate
+    return render_template('/events/modify_event.html', auditoriums=Auditorium.query.all(), dateform=dateform, eventForm=event)
 
 
 @events_app.route('/event/admin/delete-event/<id>')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def delete_event(id):
     db.session.delete(Event.query.get_or_404(id))
@@ -75,7 +77,7 @@ def delete_event(id):
 
 
 @events_app.route('/event/admin/get-event/<id>')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def get_event(id):
     return render_template('/events/event.html',
@@ -84,7 +86,7 @@ def get_event(id):
 
 
 @events_app.route('/event/admin/all-events')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def get_all_event():
     return render_template('/events/all-events.html',
@@ -93,7 +95,7 @@ def get_all_event():
 
 
 @events_app.route('/event/admin/auditorium')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def get_all_auditoriums():
     return render_template('/events/all-auditoriums.html',
@@ -102,7 +104,7 @@ def get_all_auditoriums():
 
 
 @events_app.route('/event/admin/get-auditorium/<id>')
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def get_auditorium(id):
     return render_template('/events/auditorium.html',
@@ -111,12 +113,11 @@ def get_auditorium(id):
 
 
 @events_app.route('/event/admin/add-auditorium', methods=['GET', 'POST'])
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def add_auditorium():
     if request.method == 'POST':
-        auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'],
-                                number=request.form['number'])
+        auditorium = Auditorium(id=request.form['id'], maxPlaces=request.form['maxPlaces'], number=request.form['number'])
         db.session.add(auditorium)
         db.session.commit()
         return redirect(url_for('events_app.get_all_auditoriums'))
@@ -124,7 +125,7 @@ def add_auditorium():
 
 
 @events_app.route('/event/admin/assign-to-user/<id>', methods=['GET', 'POST'])
-# @required_roles('admin')
+#@required_roles('admin')
 @login_required
 def assign_to_user(id):
     event = Event.query.get_or_404(id)
@@ -149,6 +150,8 @@ def assign_to_user(id):
 class EventDateForm(FlaskForm):
     start_date = DateTimeField(
         'DatePicker', format='%Y-%m-%d %H:%M:%S', default=datetime.datetime.now())
+    end_date = DateTimeField('DatePicker', format='%Y-%m-%d %H:%M:%S',
+         default=datetime.datetime.now() + datetime.timedelta(hours=7))
     submit = SubmitField('Submit', validators=[DataRequired()])
 
 

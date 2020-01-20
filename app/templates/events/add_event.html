@@ -25,10 +25,14 @@
         Description:
         <input type=text name=desc value="{{ request.form.desc }}"/>
     </p>
-    <div>
-                Date:
+    <p>
+                Start date:
                 {{ dateform.start_date() }}
-    </div>
+    </p>
+    <p>
+                End date:
+                {{ dateform.end_date() }}
+    </p>
     <p>
         Choose auditorium
         <select name="auditorium">

@@ -19,7 +19,8 @@
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
-        <th>Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Auditorium</th>
       </tr>
     </thead>
@@ -30,6 +31,7 @@
           <td>{{ event.name }}</td>
           <td>{{ event.description }}</td>
           <td>{{ event.date }}</td>
+          <td>{{ event.endDate }}</td>
           <td>{{ event.auditorium }}</td>
       </tr>
       {%- endfor %}
