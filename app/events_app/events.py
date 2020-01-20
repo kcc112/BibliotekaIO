@@ -38,12 +38,7 @@ def add_event():
         event = Event(id=request.form['id'], name=request.form['name'], description=request.form['desc'],
                       date=dateform.start_date.data, endDate=dateform.end_date.data,
                       auditorium=request.form['auditorium'])
-        conds = [Event.date >= event.date, Event.date <= event.endDate]
-        conds2 = [Event.endDate >= event.date, Event.endDate <= event.endDate]
-        conds3 = [Event.date <= event.date, Event.endDate >= event.endDate]
-        res = Event.query.filter(Event.auditorium == event.auditorium).filter(or_(and_(*conds),and_(*conds2),and_(*conds3))).all()
-        #print(res)
-        if len(res) == 0:
+        if check_dates(event) == 0:
             db.session.add(event)
             db.session.commit()
         return redirect(url_for('events_app.get_all_event'))
@@ -56,7 +51,7 @@ def add_event():
 def modify_event(id):
     event = Event.query.get_or_404(id)
     dateform = EventDateForm()
-    if request.method == 'POST':
+    if request.method == 'POST' & check_dates(event) == 0:
         event.name = request.form['name']
         event.description = request.form['desc']
         event.date = dateform.start_date.data
@@ -148,6 +143,15 @@ def assign_to_user(id):
                     db.session().rollback()
         return redirect(url_for('events_app.get_all_event'))
     return render_template('/events/assign-to-user.html', event=event, users=user)
+
+
+def check_dates(event):
+    conds = [Event.date >= event.date, Event.date <= event.endDate]
+    conds2 = [Event.endDate >= event.date, Event.endDate <= event.endDate]
+    conds3 = [Event.date <= event.date, Event.endDate >= event.endDate]
+    res = Event.query.filter(Event.auditorium == event.auditorium).filter(
+        or_(and_(*conds), and_(*conds2), and_(*conds3))).all()
+    return len(res)
 
 
 class EventDateForm(FlaskForm):
