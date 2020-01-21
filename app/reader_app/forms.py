@@ -50,3 +50,8 @@ class BorrowDateForm(FlaskForm):
     end_date = DateField('DatePicker', format='%Y-%m-%d',
                          default=date.today() + timedelta(days=7))
     submit = SubmitField('Submit', validators=[DataRequired()])
+
+class BookSearchForm(FlaskForm):
+    title_search = StringField('')
+    author_search = StringField('')
+    submit = SubmitField('Search', validators=[DataRequired()])
